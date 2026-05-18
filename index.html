@@ -28,188 +28,160 @@
     .sec-inner { max-width: 1080px; margin: 0 auto; padding: 80px 24px; }
     .sec-alt    { background: #080d1a; }
 
-    /* ── HERO ── */
+    /* HERO */
     .hero { background: radial-gradient(ellipse at 70% -10%, #0d1f4a 0%, #050810 65%); border-bottom: 1px solid #111e38; }
     .hero-inner { max-width: 1080px; margin: 0 auto; padding: 80px 24px; display: flex; gap: 48px; align-items: center; flex-wrap: wrap; }
+    .avatar-wrap { width:175px; height:175px; border-radius:50%; overflow:hidden; flex-shrink:0; border:2px solid #4f8ef7; background:#0b1120; display:flex; align-items:center; justify-content:center; box-shadow:0 0 0 6px rgba(79,142,247,.18),0 0 60px rgba(79,142,247,.18); }
+    .avatar-wrap img { width:100%; height:100%; object-fit:cover; }
+    .hero-badge { display:flex; align-items:center; gap:8px; margin-bottom:12px; }
+    .hero-badge-line { width:28px; height:2px; background:#4f8ef7; }
+    .hero-badge-text { font-size:10px; letter-spacing:3px; color:#4f8ef7; text-transform:uppercase; font-weight:600; }
+    .hero-name { font-family:'Cormorant Garamond',serif; font-size:clamp(2rem,5vw,3.5rem); font-weight:700; color:#e8edf8; line-height:1.1; margin-bottom:10px; }
+    .hero-job  { color:#4f8ef7; font-size:17px; font-weight:500; margin-bottom:18px; letter-spacing:.5px; }
+    .hero-bio  { color:#8a9bc0; line-height:1.8; font-size:15px; max-width:520px; }
 
-    .avatar-wrap {
-      width: 175px; height: 175px; border-radius: 50%; overflow: hidden; flex-shrink: 0;
-      border: 2px solid #4f8ef7; background: #0b1120;
-      display: flex; align-items: center; justify-content: center;
-      box-shadow: 0 0 0 6px rgba(79,142,247,.18), 0 0 60px rgba(79,142,247,.18);
-    }
-    .avatar-wrap img { width: 100%; height: 100%; object-fit: cover; }
+    /* Section Header */
+    .sec-header { text-align:center; margin-bottom:56px; }
+    .sec-header-line-wrap { display:flex; align-items:center; gap:8px; justify-content:center; margin-bottom:10px; }
+    .sec-header-line { height:1px; width:48px; background:#4f8ef7; opacity:.4; }
+    .sec-header-label { color:#4f8ef7; font-size:11px; letter-spacing:3px; text-transform:uppercase; font-weight:600; }
+    .sec-header h2 { font-family:'Cormorant Garamond',serif; font-size:clamp(1.8rem,4vw,3rem); font-weight:700; color:#e8edf8; letter-spacing:-.5px; }
 
-    .hero-badge { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; }
-    .hero-badge-line { width: 28px; height: 2px; background: #4f8ef7; }
-    .hero-badge-text { font-size: 10px; letter-spacing: 3px; color: #4f8ef7; text-transform: uppercase; font-weight: 600; }
+    /* Grids */
+    .grid-3     { display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:18px; }
+    .grid-video { display:grid; grid-template-columns:repeat(auto-fill,minmax(320px,1fr)); gap:18px; }
 
-    .hero-name { font-family: 'Cormorant Garamond', serif; font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 700; color: #e8edf8; line-height: 1.1; margin-bottom: 10px; }
-    .hero-job  { color: #4f8ef7; font-size: 17px; font-weight: 500; margin-bottom: 18px; letter-spacing: .5px; }
-    .hero-bio  { color: #8a9bc0; line-height: 1.8; font-size: 15px; max-width: 520px; }
+    /* Image Card */
+    .img-card { background:#0b1120; border:1px solid #1a2540; border-radius:14px; overflow:hidden; cursor:pointer; }
+    .img-card-thumb { width:100%; aspect-ratio:4/3; object-fit:cover; display:block; transition:transform .3s; }
+    .img-card:hover .img-card-thumb { transform:scale(1.04); }
+    .img-card-desc { padding:12px 14px; font-size:12px; color:#8a9bc0; line-height:1.6; }
 
-    /* ── Section Header ── */
-    .sec-header { text-align: center; margin-bottom: 56px; }
-    .sec-header-line-wrap { display: flex; align-items: center; gap: 8px; justify-content: center; margin-bottom: 10px; }
-    .sec-header-line { height: 1px; width: 48px; background: #4f8ef7; opacity: .4; }
-    .sec-header-label { color: #4f8ef7; font-size: 11px; letter-spacing: 3px; text-transform: uppercase; font-weight: 600; }
-    .sec-header h2 { font-family: 'Cormorant Garamond', serif; font-size: clamp(1.8rem,4vw,3rem); font-weight: 700; color: #e8edf8; letter-spacing: -.5px; }
+    /* Video Card */
+    .vid-card { background:#0b1120; border:1px solid #1a2540; border-radius:14px; overflow:hidden; }
+    .vid-card iframe { width:100%; aspect-ratio:16/9; border:none; display:block; }
+    .vid-card-desc { padding:12px 14px; font-size:12px; color:#8a9bc0; }
 
-    /* ── Grids ── */
-    .grid-3     { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 18px; }
-    .grid-video { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 18px; }
+    /* LIGHTBOX */
+    #lightbox { display:none; position:fixed; inset:0; z-index:9999; background:rgba(0,0,0,.92); backdrop-filter:blur(8px); align-items:center; justify-content:center; padding:20px; }
+    #lightbox.active { display:flex; }
+    #lightbox img { max-width:90vw; max-height:88vh; object-fit:contain; border-radius:10px; box-shadow:0 0 80px rgba(79,142,247,.25); animation:fadeUp .3s ease both; }
+    #lb-close { position:fixed; top:20px; right:24px; background:rgba(79,142,247,.15); border:1px solid #4f8ef7; color:#4f8ef7; font-size:22px; width:44px; height:44px; border-radius:50%; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:background .2s; }
+    #lb-close:hover { background:rgba(79,142,247,.35); }
+    #lb-prev, #lb-next { position:fixed; top:50%; transform:translateY(-50%); background:rgba(79,142,247,.15); border:1px solid #1a2540; color:#e8edf8; font-size:28px; width:48px; height:48px; border-radius:50%; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:background .2s; }
+    #lb-prev { left:16px; }
+    #lb-next { right:16px; }
+    #lb-prev:hover, #lb-next:hover { background:rgba(79,142,247,.35); }
+    #lb-counter { position:fixed; bottom:20px; left:50%; transform:translateX(-50%); color:#8a9bc0; font-size:13px; background:rgba(5,8,16,.7); padding:6px 16px; border-radius:20px; }
 
-    /* ── Image Card ── */
-    .img-card { background: #0b1120; border: 1px solid #1a2540; border-radius: 14px; overflow: hidden; }
-    .img-card img { width: 100%; aspect-ratio: 4/3; object-fit: cover; display: block; }
-    .img-card-desc { padding: 12px 14px; font-size: 12px; color: #8a9bc0; line-height: 1.6; }
+    /* Footer */
+    footer { background:#030509; padding:60px 24px 40px; }
+    .footer-inner { max-width:680px; margin:0 auto; text-align:center; }
+    .fb-btn { display:inline-flex; align-items:center; justify-content:center; width:52px; height:52px; border-radius:50%; background:#1877f2; color:#fff; font-size:22px; text-decoration:none; margin-bottom:32px; box-shadow:0 4px 24px rgba(24,119,242,.35); transition:transform .2s; font-weight:700; }
+    .fb-btn:hover { transform:scale(1.12); }
+    .footer-contacts { display:flex; gap:24px; justify-content:center; flex-wrap:wrap; margin-bottom:16px; }
+    .footer-contacts span { color:#8a9bc0; font-size:13px; }
+    .footer-copy { color:#3d4f72; font-size:11px; margin-top:40px; opacity:.4; }
 
-    /* ── Video Card ── */
-    .vid-card { background: #0b1120; border: 1px solid #1a2540; border-radius: 14px; overflow: hidden; }
-    .vid-card iframe { width: 100%; aspect-ratio: 16/9; border: none; display: block; }
-    .vid-card-desc { padding: 12px 14px; font-size: 12px; color: #8a9bc0; }
-
-    /* ── Footer ── */
-    footer { background: #030509; padding: 60px 24px 40px; }
-    .footer-inner { max-width: 680px; margin: 0 auto; text-align: center; }
-    .fb-btn {
-      display: inline-flex; align-items: center; justify-content: center;
-      width: 52px; height: 52px; border-radius: 50%; background: #1877f2;
-      color: #fff; font-size: 22px; text-decoration: none; margin-bottom: 32px;
-      box-shadow: 0 4px 24px rgba(24,119,242,.35); transition: transform .2s;
-      font-weight: 700;
-    }
-    .fb-btn:hover { transform: scale(1.12); }
-    .footer-contacts { display: flex; gap: 28px; justify-content: center; flex-wrap: wrap; margin-bottom: 16px; }
-    .footer-contacts span { color: #8a9bc0; font-size: 13px; }
-    .footer-copy { color: #3d4f72; font-size: 11px; margin-top: 40px; opacity: .4; }
-
-    @media (max-width: 600px) {
-      .hero-inner { flex-direction: column; text-align: center; padding: 48px 20px; }
-      .hero-badge { justify-content: center; }
-      .sec-inner  { padding: 56px 16px; }
+    @media (max-width:600px) {
+      .hero-inner { flex-direction:column; text-align:center; padding:48px 20px; }
+      .hero-badge { justify-content:center; }
+      .sec-inner  { padding:56px 16px; }
+      .grid-3, .grid-video { grid-template-columns:1fr; }
     }
   </style>
 </head>
 <body>
 
-  <!-- ══ HERO ══ -->
+  <!-- LIGHTBOX -->
+  <div id="lightbox">
+    <button id="lb-close" onclick="closeLB()">✕</button>
+    <button id="lb-prev"  onclick="moveLB(-1)">‹</button>
+    <img id="lb-img" src="" alt="" />
+    <button id="lb-next"  onclick="moveLB(1)">›</button>
+    <span id="lb-counter"></span>
+  </div>
+
+  <!-- HERO -->
   <div class="hero">
     <div class="hero-inner">
-
-      <!-- Avatar -->
       <div class="avatar-wrap hero-text">
-        <img src="photo.jpg" alt="Eltayeb Youssef" onerror="this.parentElement.innerHTML='<div style=\'text-align:center;color:#3d4f72\'><div style=\'font-size:32px;color:#4f8ef7;opacity:.4\'>◎</div><div style=\'font-size:11px;margin-top:8px;letter-spacing:2px\'>photo.jpg</div></div>'" />
+        <img src="photo.png" alt="Eltayeb Youssef" />
       </div>
-
-      <!-- Info -->
-      <div style="flex:1; min-width:260px;">
+      <div style="flex:1;min-width:260px;">
         <div class="hero-badge hero-text">
           <div class="hero-badge-line"></div>
           <span class="hero-badge-text">Portfolio</span>
         </div>
         <h1 class="hero-name hero-text-2">Eltayeb Youssef Mohammed</h1>
         <p class="hero-job hero-text-2">Media Buyer | Content Creator</p>
-        <p class="hero-bio hero-text-3">
-          Technical Support Specialist with 7 years of experience at BConnect. Experienced in Adobe Photoshop for 3 years, creating professional designs and visual content. Worked as a Media Buyer for 2 years managing digital advertising campaigns. Handled multiple successful projects and marketing campaigns across different industries. Skilled in digital marketing, audience targeting, and campaign optimization.
-        </p>
+        <p class="hero-bio hero-text-3">Technical Support Specialist with 7 years of experience at BConnect. Experienced in Adobe Photoshop for 3 years, creating professional designs and visual content. Worked as a Media Buyer for 2 years managing digital advertising campaigns. Handled multiple successful projects and marketing campaigns across different industries. Skilled in digital marketing, audience targeting, and campaign optimization.</p>
       </div>
-
     </div>
   </div>
 
-  <!-- ══ PHOTOSHOP DESIGNS ══ -->
+  <!-- PHOTOSHOP DESIGNS -->
   <hr class="divider" />
   <section>
     <div class="sec-inner">
       <div class="sec-header">
-        <div class="sec-header-line-wrap">
-          <div class="sec-header-line"></div>
-          <span class="sec-header-label">Section</span>
-          <div class="sec-header-line"></div>
-        </div>
+        <div class="sec-header-line-wrap"><div class="sec-header-line"></div><span class="sec-header-label">Section</span><div class="sec-header-line"></div></div>
         <h2>Photoshop Designs</h2>
       </div>
       <div class="grid-3">
-        <div class="img-card card-hover"><img src="Design1.jpg" alt="Design 1" /><div class="img-card-desc">Design 1</div></div>
-        <div class="img-card card-hover"><img src="Design2.jpg" alt="Design 2" /><div class="img-card-desc">Design 2</div></div>
-        <div class="img-card card-hover"><img src="Design3.jpg" alt="Design 3" /><div class="img-card-desc">Design 3</div></div>
-        <div class="img-card card-hover"><img src="Design4.jpg" alt="Design 4" /><div class="img-card-desc">Design 4</div></div>
-        <div class="img-card card-hover"><img src="Design5.jpg" alt="Design 5" /><div class="img-card-desc">Design 5</div></div>
-        <div class="img-card card-hover"><img src="Design6.jpg" alt="Design 6" /><div class="img-card-desc">Design 6</div></div>
-        <div class="img-card card-hover"><img src="Design7.jpg" alt="Design 7" /><div class="img-card-desc">Design 7</div></div>
-        <div class="img-card card-hover"><img src="Design8.jpg" alt="Design 8" /><div class="img-card-desc">Design 8</div></div>
-        <div class="img-card card-hover"><img src="Design9.jpg" alt="Design 9" /><div class="img-card-desc">Design 9</div></div>
+        <div class="img-card card-hover" onclick="openLB('designs',0)"><img class="img-card-thumb" src="Design1.jpg" alt="Design 1"/><div class="img-card-desc">Design 1</div></div>
+        <div class="img-card card-hover" onclick="openLB('designs',1)"><img class="img-card-thumb" src="Design2.jpg" alt="Design 2"/><div class="img-card-desc">Design 2</div></div>
+        <div class="img-card card-hover" onclick="openLB('designs',2)"><img class="img-card-thumb" src="Design3.jpg" alt="Design 3"/><div class="img-card-desc">Design 3</div></div>
+        <div class="img-card card-hover" onclick="openLB('designs',3)"><img class="img-card-thumb" src="Design4.jpg" alt="Design 4"/><div class="img-card-desc">Design 4</div></div>
+        <div class="img-card card-hover" onclick="openLB('designs',4)"><img class="img-card-thumb" src="Design5.jpg" alt="Design 5"/><div class="img-card-desc">Design 5</div></div>
+        <div class="img-card card-hover" onclick="openLB('designs',5)"><img class="img-card-thumb" src="Design6.jpg" alt="Design 6"/><div class="img-card-desc">Design 6</div></div>
+        <div class="img-card card-hover" onclick="openLB('designs',6)"><img class="img-card-thumb" src="Design7.jpg" alt="Design 7"/><div class="img-card-desc">Design 7</div></div>
+        <div class="img-card card-hover" onclick="openLB('designs',7)"><img class="img-card-thumb" src="Design8.jpg" alt="Design 8"/><div class="img-card-desc">Design 8</div></div>
+        <div class="img-card card-hover" onclick="openLB('designs',8)"><img class="img-card-thumb" src="Design9.jpg" alt="Design 9"/><div class="img-card-desc">Design 9</div></div>
       </div>
     </div>
   </section>
 
-  <!-- ══ AI VIDEOS ══ -->
+  <!-- AI VIDEOS -->
   <hr class="divider" />
   <section class="sec-alt">
     <div class="sec-inner">
       <div class="sec-header">
-        <div class="sec-header-line-wrap">
-          <div class="sec-header-line"></div>
-          <span class="sec-header-label">Section</span>
-          <div class="sec-header-line"></div>
-        </div>
+        <div class="sec-header-line-wrap"><div class="sec-header-line"></div><span class="sec-header-label">Section</span><div class="sec-header-line"></div></div>
         <h2>Ai</h2>
       </div>
       <div class="grid-video">
-        <div class="vid-card card-hover">
-          <iframe src="https://www.youtube.com/embed/7bUtw20e8bA" allowfullscreen title="Video 1"></iframe>
-          <div class="vid-card-desc">Video 1</div>
-        </div>
-        <div class="vid-card card-hover">
-          <iframe src="https://www.youtube.com/embed/r52Jh51ZgYE" allowfullscreen title="Video 2"></iframe>
-          <div class="vid-card-desc">Video 2</div>
-        </div>
-        <div class="vid-card card-hover">
-          <iframe src="https://www.youtube.com/embed/lW5BGVpotTA" allowfullscreen title="Video 3"></iframe>
-          <div class="vid-card-desc">Video 3</div>
-        </div>
-        <div class="vid-card card-hover">
-          <iframe src="https://www.youtube.com/embed/cMiowU4xquA" allowfullscreen title="Video 4"></iframe>
-          <div class="vid-card-desc">Video 4</div>
-        </div>
-        <div class="vid-card card-hover">
-          <iframe src="https://www.youtube.com/embed/r5g9D_8xWjE" allowfullscreen title="Video 5"></iframe>
-          <div class="vid-card-desc">Video 5</div>
-        </div>
-        <div class="vid-card card-hover">
-          <iframe src="https://www.youtube.com/embed/TKdsfqZwfWs" allowfullscreen title="Video 6"></iframe>
-          <div class="vid-card-desc">Video 6</div>
-        </div>
+        <div class="vid-card card-hover"><iframe src="https://www.youtube.com/embed/7bUtw20e8bA" allowfullscreen title="Video 1"></iframe><div class="vid-card-desc">Video 1</div></div>
+        <div class="vid-card card-hover"><iframe src="https://www.youtube.com/embed/r52Jh51ZgYE" allowfullscreen title="Video 2"></iframe><div class="vid-card-desc">Video 2</div></div>
+        <div class="vid-card card-hover"><iframe src="https://www.youtube.com/embed/lW5BGVpotTA" allowfullscreen title="Video 3"></iframe><div class="vid-card-desc">Video 3</div></div>
+        <div class="vid-card card-hover"><iframe src="https://www.youtube.com/embed/cMiowU4xquA" allowfullscreen title="Video 4"></iframe><div class="vid-card-desc">Video 4</div></div>
+        <div class="vid-card card-hover"><iframe src="https://www.youtube.com/embed/r5g9D_8xWjE" allowfullscreen title="Video 5"></iframe><div class="vid-card-desc">Video 5</div></div>
+        <div class="vid-card card-hover"><iframe src="https://www.youtube.com/embed/TKdsfqZwfWs" allowfullscreen title="Video 6"></iframe><div class="vid-card-desc">Video 6</div></div>
       </div>
     </div>
   </section>
 
-  <!-- ══ MARKETING CAMPAIGNS ══ -->
+  <!-- MARKETING CAMPAIGNS -->
   <hr class="divider" />
   <section>
     <div class="sec-inner">
       <div class="sec-header">
-        <div class="sec-header-line-wrap">
-          <div class="sec-header-line"></div>
-          <span class="sec-header-label">Section</span>
-          <div class="sec-header-line"></div>
-        </div>
+        <div class="sec-header-line-wrap"><div class="sec-header-line"></div><span class="sec-header-label">Section</span><div class="sec-header-line"></div></div>
         <h2>Marketing Campaigns</h2>
       </div>
       <div class="grid-3">
-        <div class="img-card card-hover"><img src="ad1.jpg" alt="Campaign 1" /><div class="img-card-desc">Campaign 1</div></div>
-        <div class="img-card card-hover"><img src="ad2.jpg" alt="Campaign 2" /><div class="img-card-desc">Campaign 2</div></div>
-        <div class="img-card card-hover"><img src="ad3.jpg" alt="Campaign 3" /><div class="img-card-desc">Campaign 3</div></div>
+        <div class="img-card card-hover" onclick="openLB('ads',0)"><img class="img-card-thumb" src="ad1.jpg" alt="Campaign 1"/><div class="img-card-desc">Campaign 1</div></div>
+        <div class="img-card card-hover" onclick="openLB('ads',1)"><img class="img-card-thumb" src="ad2.jpg" alt="Campaign 2"/><div class="img-card-desc">Campaign 2</div></div>
+        <div class="img-card card-hover" onclick="openLB('ads',2)"><img class="img-card-thumb" src="ad3.jpg" alt="Campaign 3"/><div class="img-card-desc">Campaign 3</div></div>
       </div>
     </div>
   </section>
 
-  <!-- ══ FOOTER ══ -->
+  <!-- FOOTER -->
   <hr class="divider" />
   <footer>
     <div class="footer-inner">
-      <a class="fb-btn" href="https://www.facebook.com/01118929196" target="_blank" rel="noreferrer">f</a>
+      <a class="fb-btn" href="https://www.facebook.com/profile.php?id=01118929196" target="_blank" rel="noreferrer">f</a>
       <div class="footer-contacts">
         <span>📧 eltayeb.shetos@gmail.com</span>
         <span>📍 Luxor - Armant</span>
@@ -218,6 +190,44 @@
       <p class="footer-copy">© 2026 Eltayeb Youssef Mohammed — All rights reserved</p>
     </div>
   </footer>
+
+  <script>
+    const galleries = {
+      designs: ['Design1.jpg','Design2.jpg','Design3.jpg','Design4.jpg','Design5.jpg','Design6.jpg','Design7.jpg','Design8.jpg','Design9.jpg'],
+      ads:     ['ad1.jpg','ad2.jpg','ad3.jpg']
+    };
+    let cur = { gallery: null, index: 0 };
+
+    function openLB(gallery, index) {
+      cur.gallery = gallery; cur.index = index;
+      updateLB();
+      document.getElementById('lightbox').classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+    function updateLB() {
+      const imgs = galleries[cur.gallery];
+      document.getElementById('lb-img').src = imgs[cur.index];
+      document.getElementById('lb-counter').textContent = (cur.index + 1) + ' / ' + imgs.length;
+    }
+    function closeLB() {
+      document.getElementById('lightbox').classList.remove('active');
+      document.body.style.overflow = '';
+    }
+    function moveLB(dir) {
+      const imgs = galleries[cur.gallery];
+      cur.index = (cur.index + dir + imgs.length) % imgs.length;
+      updateLB();
+    }
+    document.getElementById('lightbox').addEventListener('click', function(e) {
+      if (e.target === this) closeLB();
+    });
+    document.addEventListener('keydown', function(e) {
+      if (!document.getElementById('lightbox').classList.contains('active')) return;
+      if (e.key === 'Escape')     closeLB();
+      if (e.key === 'ArrowRight') moveLB(1);
+      if (e.key === 'ArrowLeft')  moveLB(-1);
+    });
+  </script>
 
 </body>
 </html>
