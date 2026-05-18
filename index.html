@@ -1,14 +1,11 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="en" dir="ltr">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Portfolio — Midnight Blue</title>
+  <title>Eltayeb Youssef — Portfolio</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
-  <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
-  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
-  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     body { font-family: 'Inter', sans-serif; background: #050810; color: #e8edf8; }
@@ -20,374 +17,207 @@
       from { opacity: 0; transform: translateY(20px); }
       to   { opacity: 1; transform: translateY(0); }
     }
-    .hero-text  { animation: fadeUp .8s ease both; }
-    .hero-text-2{ animation: fadeUp .8s .15s ease both; }
-    .hero-text-3{ animation: fadeUp .8s .30s ease both; }
+    .hero-text   { animation: fadeUp .8s ease both; }
+    .hero-text-2 { animation: fadeUp .8s .15s ease both; }
+    .hero-text-3 { animation: fadeUp .8s .30s ease both; }
 
     .card-hover { transition: transform .25s, box-shadow .25s; }
     .card-hover:hover { transform: translateY(-6px); box-shadow: 0 16px 48px rgba(79,142,247,.18); }
 
-    .add-btn { display:flex;align-items:center;gap:8px;background:transparent;border:1px dashed #3d4f72;color:#8a9bc0;padding:12px 28px;border-radius:10px;cursor:pointer;font-size:13px;margin:0 auto;transition:all .2s;font-family:'Inter',sans-serif; }
-    .add-btn:hover { border-color:#4f8ef7; color:#4f8ef7; }
+    hr.divider { border: none; border-top: 1px solid #111e38; margin: 0; }
+    .sec-inner { max-width: 1080px; margin: 0 auto; padding: 80px 24px; }
+    .sec-alt    { background: #080d1a; }
 
-    hr.divider { border:none; border-top:1px solid #111e38; margin:0; }
+    /* ── HERO ── */
+    .hero { background: radial-gradient(ellipse at 70% -10%, #0d1f4a 0%, #050810 65%); border-bottom: 1px solid #111e38; }
+    .hero-inner { max-width: 1080px; margin: 0 auto; padding: 80px 24px; display: flex; gap: 48px; align-items: center; flex-wrap: wrap; }
 
-    section { }
-    .sec-inner { max-width:1080px; margin:0 auto; padding:80px 24px; }
-    .sec-alt { background:#080d1a; }
+    .avatar-wrap {
+      width: 175px; height: 175px; border-radius: 50%; overflow: hidden; flex-shrink: 0;
+      border: 2px solid #4f8ef7; background: #0b1120;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 0 0 6px rgba(79,142,247,.18), 0 0 60px rgba(79,142,247,.18);
+    }
+    .avatar-wrap img { width: 100%; height: 100%; object-fit: cover; }
 
-    .grid-3 { display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:18px; margin-bottom:32px; }
-    .grid-video { display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:18px; margin-bottom:32px; }
+    .hero-badge { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; }
+    .hero-badge-line { width: 28px; height: 2px; background: #4f8ef7; }
+    .hero-badge-text { font-size: 10px; letter-spacing: 3px; color: #4f8ef7; text-transform: uppercase; font-weight: 600; }
 
-    input, textarea, button { font-family:'Inter',sans-serif; }
+    .hero-name { font-family: 'Cormorant Garamond', serif; font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 700; color: #e8edf8; line-height: 1.1; margin-bottom: 10px; }
+    .hero-job  { color: #4f8ef7; font-size: 17px; font-weight: 500; margin-bottom: 18px; letter-spacing: .5px; }
+    .hero-bio  { color: #8a9bc0; line-height: 1.8; font-size: 15px; max-width: 520px; }
+
+    /* ── Section Header ── */
+    .sec-header { text-align: center; margin-bottom: 56px; }
+    .sec-header-line-wrap { display: flex; align-items: center; gap: 8px; justify-content: center; margin-bottom: 10px; }
+    .sec-header-line { height: 1px; width: 48px; background: #4f8ef7; opacity: .4; }
+    .sec-header-label { color: #4f8ef7; font-size: 11px; letter-spacing: 3px; text-transform: uppercase; font-weight: 600; }
+    .sec-header h2 { font-family: 'Cormorant Garamond', serif; font-size: clamp(1.8rem,4vw,3rem); font-weight: 700; color: #e8edf8; letter-spacing: -.5px; }
+
+    /* ── Grids ── */
+    .grid-3     { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 18px; }
+    .grid-video { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 18px; }
+
+    /* ── Image Card ── */
+    .img-card { background: #0b1120; border: 1px solid #1a2540; border-radius: 14px; overflow: hidden; }
+    .img-card img { width: 100%; aspect-ratio: 4/3; object-fit: cover; display: block; }
+    .img-card-desc { padding: 12px 14px; font-size: 12px; color: #8a9bc0; line-height: 1.6; }
+
+    /* ── Video Card ── */
+    .vid-card { background: #0b1120; border: 1px solid #1a2540; border-radius: 14px; overflow: hidden; }
+    .vid-card iframe { width: 100%; aspect-ratio: 16/9; border: none; display: block; }
+    .vid-card-desc { padding: 12px 14px; font-size: 12px; color: #8a9bc0; }
+
+    /* ── Footer ── */
+    footer { background: #030509; padding: 60px 24px 40px; }
+    .footer-inner { max-width: 680px; margin: 0 auto; text-align: center; }
+    .fb-btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 52px; height: 52px; border-radius: 50%; background: #1877f2;
+      color: #fff; font-size: 22px; text-decoration: none; margin-bottom: 32px;
+      box-shadow: 0 4px 24px rgba(24,119,242,.35); transition: transform .2s;
+      font-weight: 700;
+    }
+    .fb-btn:hover { transform: scale(1.12); }
+    .footer-contacts { display: flex; gap: 28px; justify-content: center; flex-wrap: wrap; margin-bottom: 16px; }
+    .footer-contacts span { color: #8a9bc0; font-size: 13px; }
+    .footer-copy { color: #3d4f72; font-size: 11px; margin-top: 40px; opacity: .4; }
+
+    @media (max-width: 600px) {
+      .hero-inner { flex-direction: column; text-align: center; padding: 48px 20px; }
+      .hero-badge { justify-content: center; }
+      .sec-inner  { padding: 56px 16px; }
+    }
   </style>
 </head>
 <body>
-  <div id="root"></div>
 
-  <script type="text/babel">
-    const { useState, useRef } = React;
+  <!-- ══ HERO ══ -->
+  <div class="hero">
+    <div class="hero-inner">
 
-    const T = {
-      bg:        "#050810",
-      bgCard:    "#0b1120",
-      bgSection: "#080d1a",
-      border:    "#1a2540",
-      accent:    "#4f8ef7",
-      accentGlow:"rgba(79,142,247,.18)",
-      accentDim: "#2a5cbf",
-      text:      "#e8edf8",
-      textSub:   "#8a9bc0",
-      textMuted: "#3d4f72",
-      divider:   "#111e38",
-      footerBg:  "#030509",
-    };
+      <!-- Avatar -->
+      <div class="avatar-wrap hero-text">
+        <img src="photo.jpg" alt="Eltayeb Youssef" onerror="this.parentElement.innerHTML='<div style=\'text-align:center;color:#3d4f72\'><div style=\'font-size:32px;color:#4f8ef7;opacity:.4\'>◎</div><div style=\'font-size:11px;margin-top:8px;letter-spacing:2px\'>photo.jpg</div></div>'" />
+      </div>
 
-    const btnPrimary = {
-      background:`linear-gradient(135deg,${T.accent},${T.accentDim})`,
-      border:"none", color:"#fff", fontWeight:600,
-      padding:"10px 28px", borderRadius:8, cursor:"pointer",
-      fontSize:13, letterSpacing:".5px",
-      boxShadow:`0 4px 20px ${T.accentGlow}`
-    };
-    const btnSmall = {
-      background:T.accent, border:"none", color:"#fff",
-      padding:"6px 14px", borderRadius:6, cursor:"pointer", fontSize:12, fontWeight:600
-    };
-    const inputSt = {
-      background:T.bgCard, border:`1px solid ${T.border}`,
-      borderRadius:7, color:T.text, padding:"8px 12px", fontSize:13, outline:"none"
-    };
-
-    /* ── Editable Header ── */
-    function EditableHeader({ value, onChange }) {
-      const [editing, setEditing] = useState(false);
-      const [draft, setDraft] = useState(value);
-      const save = () => { onChange(draft); setEditing(false); };
-      return (
-        <div style={{textAlign:"center",marginBottom:56}}>
-          {editing
-            ? <div style={{display:"flex",flexDirection:"column",alignItems:"center",gap:14}}>
-                <input value={draft} onChange={e=>setDraft(e.target.value)} autoFocus
-                  style={{...inputSt,fontSize:"clamp(1.6rem,4vw,2.8rem)",fontFamily:"'Cormorant Garamond',serif",
-                    fontWeight:700,textAlign:"center",width:"100%",maxWidth:640,
-                    background:"transparent",border:"none",borderBottom:`2px solid ${T.accent}`,borderRadius:0}} />
-                <button onClick={save} style={btnPrimary}>Save</button>
-              </div>
-            : <div style={{cursor:"pointer",display:"inline-block"}} onClick={()=>{setDraft(value);setEditing(true);}}>
-                <div style={{display:"flex",alignItems:"center",gap:8,justifyContent:"center",marginBottom:10}}>
-                  <div style={{height:1,width:48,background:T.accent,opacity:.4}} />
-                  <span style={{color:T.accent,fontSize:11,letterSpacing:3,textTransform:"uppercase",fontWeight:600}}>Section</span>
-                  <div style={{height:1,width:48,background:T.accent,opacity:.4}} />
-                </div>
-                <h2 style={{fontFamily:"'Cormorant Garamond',serif",fontSize:"clamp(1.8rem,4vw,3rem)",fontWeight:700,color:T.text,letterSpacing:"-0.5px"}}>
-                  {value} <span style={{fontSize:13,color:T.accent,opacity:.7}}>✏️</span>
-                </h2>
-              </div>
-          }
+      <!-- Info -->
+      <div style="flex:1; min-width:260px;">
+        <div class="hero-badge hero-text">
+          <div class="hero-badge-line"></div>
+          <span class="hero-badge-text">Portfolio</span>
         </div>
-      );
-    }
+        <h1 class="hero-name hero-text-2">Eltayeb Youssef Mohammed</h1>
+        <p class="hero-job hero-text-2">Media Buyer | Content Creator</p>
+        <p class="hero-bio hero-text-3">
+          Technical Support Specialist with 7 years of experience at BConnect. Experienced in Adobe Photoshop for 3 years, creating professional designs and visual content. Worked as a Media Buyer for 2 years managing digital advertising campaigns. Handled multiple successful projects and marketing campaigns across different industries. Skilled in digital marketing, audience targeting, and campaign optimization.
+        </p>
+      </div>
 
-    /* ── Image Card ── */
-    function ImageCard({ onRemove }) {
-      const [img, setImg] = useState(null);
-      const [desc, setDesc] = useState("اكتب وصف هنا...");
-      const [editDesc, setEditDesc] = useState(false);
-      const [draftDesc, setDraftDesc] = useState(desc);
-      const ref = useRef();
-      return (
-        <div className="card-hover" style={{background:T.bgCard,border:`1px solid ${T.border}`,borderRadius:14,overflow:"hidden"}}>
-          <div style={{width:"100%",aspectRatio:"4/3",background:T.bgSection,cursor:"pointer",position:"relative"}}
-            onClick={()=>ref.current.click()}>
-            {img
-              ? <img src={img} alt="" style={{width:"100%",height:"100%",objectFit:"cover"}} />
-              : <div style={{width:"100%",height:"100%",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",gap:8,color:T.textMuted}}>
-                  <span style={{fontSize:30,color:T.accent,opacity:.5}}>⬡</span>
-                  <span style={{fontSize:12,letterSpacing:2,textTransform:"uppercase"}}>Browse</span>
-                </div>
-            }
-            <input ref={ref} type="file" accept="image/*" style={{display:"none"}}
-              onChange={e=>{const f=e.target.files[0];if(f)setImg(URL.createObjectURL(f));}} />
-            <div style={{position:"absolute",top:10,right:10,width:8,height:8,borderRadius:"50%",background:T.accent,opacity:img?1:0}} />
-          </div>
-          <div style={{padding:"12px 14px"}}>
-            {editDesc
-              ? <div style={{display:"flex",gap:8}}>
-                  <input value={draftDesc} onChange={e=>setDraftDesc(e.target.value)} autoFocus style={{...inputSt,flex:1,fontSize:12}} />
-                  <button onClick={()=>{setDesc(draftDesc);setEditDesc(false);}} style={btnSmall}>Save</button>
-                </div>
-              : <p style={{fontSize:12,color:T.textSub,cursor:"pointer",lineHeight:1.6}}
-                  onClick={()=>{setDraftDesc(desc);setEditDesc(true);}}>{desc}</p>
-            }
-          </div>
-          <button onClick={onRemove} style={{margin:"0 14px 12px",background:"transparent",border:`1px solid ${T.divider}`,color:T.textMuted,borderRadius:5,padding:"3px 8px",fontSize:11,cursor:"pointer"}}>حذف</button>
+    </div>
+  </div>
+
+  <!-- ══ PHOTOSHOP DESIGNS ══ -->
+  <hr class="divider" />
+  <section>
+    <div class="sec-inner">
+      <div class="sec-header">
+        <div class="sec-header-line-wrap">
+          <div class="sec-header-line"></div>
+          <span class="sec-header-label">Section</span>
+          <div class="sec-header-line"></div>
         </div>
-      );
-    }
+        <h2>Photoshop Designs</h2>
+      </div>
+      <div class="grid-3">
+        <div class="img-card card-hover"><img src="Design1.jpg" alt="Design 1" /><div class="img-card-desc">Design 1</div></div>
+        <div class="img-card card-hover"><img src="Design2.jpg" alt="Design 2" /><div class="img-card-desc">Design 2</div></div>
+        <div class="img-card card-hover"><img src="Design3.jpg" alt="Design 3" /><div class="img-card-desc">Design 3</div></div>
+        <div class="img-card card-hover"><img src="Design4.jpg" alt="Design 4" /><div class="img-card-desc">Design 4</div></div>
+        <div class="img-card card-hover"><img src="Design5.jpg" alt="Design 5" /><div class="img-card-desc">Design 5</div></div>
+        <div class="img-card card-hover"><img src="Design6.jpg" alt="Design 6" /><div class="img-card-desc">Design 6</div></div>
+        <div class="img-card card-hover"><img src="Design7.jpg" alt="Design 7" /><div class="img-card-desc">Design 7</div></div>
+        <div class="img-card card-hover"><img src="Design8.jpg" alt="Design 8" /><div class="img-card-desc">Design 8</div></div>
+        <div class="img-card card-hover"><img src="Design9.jpg" alt="Design 9" /><div class="img-card-desc">Design 9</div></div>
+      </div>
+    </div>
+  </section>
 
-    /* ── Video Card ── */
-    function VideoCard({ onRemove }) {
-      const [src, setSrc] = useState(null);
-      const [url, setUrl] = useState("");
-      const [mode, setMode] = useState("idle");
-      const [desc, setDesc] = useState("وصف الفيديو...");
-      const [editDesc, setEditDesc] = useState(false);
-      const [draftDesc, setDraftDesc] = useState(desc);
-      const ref = useRef();
-      const applyUrl = () => { if(url.trim()){setSrc(url.trim());setMode("idle");} };
-      const embedSrc = s => {
-        const yt = s.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([a-zA-Z0-9_-]+)/);
-        return yt ? `https://www.youtube.com/embed/${yt[1]}` : s;
-      };
-      return (
-        <div style={{background:T.bgCard,border:`1px solid ${T.border}`,borderRadius:14,overflow:"hidden"}}>
-          <div style={{width:"100%",aspectRatio:"16/9",background:T.bgSection}}>
-            {src
-              ? (src.startsWith("blob:")
-                ? <video src={src} controls style={{width:"100%",height:"100%",objectFit:"cover"}} />
-                : <iframe src={embedSrc(src)} style={{width:"100%",height:"100%",border:"none"}} allowFullScreen title="v" />)
-              : <div style={{width:"100%",height:"100%",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",gap:14}}>
-                  <span style={{fontSize:34,color:T.accent,opacity:.4}}>▶</span>
-                  <div style={{display:"flex",gap:10}}>
-                    <button onClick={()=>{setMode("file");setTimeout(()=>ref.current?.click(),10);}} style={btnSmall}>📁 رفع</button>
-                    <button onClick={()=>setMode("url")} style={btnSmall}>🔗 رابط</button>
-                  </div>
-                  {mode==="url" && <div style={{display:"flex",gap:8,width:"85%",maxWidth:300}}>
-                    <input value={url} onChange={e=>setUrl(e.target.value)} placeholder="https://..." autoFocus style={{...inputSt,flex:1,fontSize:12}} />
-                    <button onClick={applyUrl} style={btnSmall}>OK</button>
-                  </div>}
-                  <input ref={ref} type="file" accept="video/*" style={{display:"none"}}
-                    onChange={e=>{const f=e.target.files[0];if(f){setSrc(URL.createObjectURL(f));setMode("idle");}}} />
-                </div>
-            }
-          </div>
-          <div style={{padding:"12px 14px"}}>
-            {editDesc
-              ? <div style={{display:"flex",gap:8}}>
-                  <input value={draftDesc} onChange={e=>setDraftDesc(e.target.value)} autoFocus style={{...inputSt,flex:1,fontSize:12}} />
-                  <button onClick={()=>{setDesc(draftDesc);setEditDesc(false);}} style={btnSmall}>Save</button>
-                </div>
-              : <p style={{fontSize:12,color:T.textSub,cursor:"pointer"}} onClick={()=>{setDraftDesc(desc);setEditDesc(true);}}>{desc}</p>
-            }
-          </div>
-          <button onClick={onRemove} style={{margin:"0 14px 12px",background:"transparent",border:`1px solid ${T.divider}`,color:T.textMuted,borderRadius:5,padding:"3px 8px",fontSize:11,cursor:"pointer"}}>حذف</button>
+  <!-- ══ AI VIDEOS ══ -->
+  <hr class="divider" />
+  <section class="sec-alt">
+    <div class="sec-inner">
+      <div class="sec-header">
+        <div class="sec-header-line-wrap">
+          <div class="sec-header-line"></div>
+          <span class="sec-header-label">Section</span>
+          <div class="sec-header-line"></div>
         </div>
-      );
-    }
-
-    /* ── Testimonial ── */
-    function TestimonialCard({ onRemove }) {
-      const [name, setName] = useState("اسم العميل");
-      const [text, setText] = useState("رأي العميل في العمل...");
-      const [editName, setEditName] = useState(false);
-      const [editText, setEditText] = useState(false);
-      return (
-        <div style={{background:T.bgCard,border:`1px solid ${T.border}`,borderRadius:14,padding:24,position:"relative"}}>
-          <div style={{width:36,height:3,background:T.accent,borderRadius:2,marginBottom:16}} />
-          {editText
-            ? <div style={{marginBottom:14}}>
-                <textarea value={text} onChange={e=>setText(e.target.value)} rows={3} autoFocus
-                  style={{...inputSt,width:"100%",resize:"vertical",lineHeight:1.6}} />
-                <button onClick={()=>setEditText(false)} style={{...btnSmall,marginTop:8}}>Save</button>
-              </div>
-            : <p style={{color:T.textSub,fontSize:14,lineHeight:1.8,marginBottom:16,cursor:"pointer"}} onClick={()=>setEditText(true)}>{text}</p>
-          }
-          {editName
-            ? <div style={{display:"flex",gap:8}}>
-                <input value={name} onChange={e=>setName(e.target.value)} autoFocus style={{...inputSt,flex:1,fontSize:12}} />
-                <button onClick={()=>setEditName(false)} style={btnSmall}>Save</button>
-              </div>
-            : <p style={{color:T.accent,fontSize:12,fontWeight:600,cursor:"pointer",letterSpacing:1}} onClick={()=>setEditName(true)}>— {name}</p>
-          }
-          <button onClick={onRemove} style={{position:"absolute",top:12,left:12,background:"transparent",border:"none",color:T.textMuted,cursor:"pointer",fontSize:14}}>✕</button>
+        <h2>Ai</h2>
+      </div>
+      <div class="grid-video">
+        <div class="vid-card card-hover">
+          <iframe src="https://www.youtube.com/embed/7bUtw20e8bA" allowfullscreen title="Video 1"></iframe>
+          <div class="vid-card-desc">Video 1</div>
         </div>
-      );
-    }
+        <div class="vid-card card-hover">
+          <iframe src="https://www.youtube.com/embed/r52Jh51ZgYE" allowfullscreen title="Video 2"></iframe>
+          <div class="vid-card-desc">Video 2</div>
+        </div>
+        <div class="vid-card card-hover">
+          <iframe src="https://www.youtube.com/embed/lW5BGVpotTA" allowfullscreen title="Video 3"></iframe>
+          <div class="vid-card-desc">Video 3</div>
+        </div>
+        <div class="vid-card card-hover">
+          <iframe src="https://www.youtube.com/embed/cMiowU4xquA" allowfullscreen title="Video 4"></iframe>
+          <div class="vid-card-desc">Video 4</div>
+        </div>
+        <div class="vid-card card-hover">
+          <iframe src="https://www.youtube.com/embed/r5g9D_8xWjE" allowfullscreen title="Video 5"></iframe>
+          <div class="vid-card-desc">Video 5</div>
+        </div>
+        <div class="vid-card card-hover">
+          <iframe src="https://www.youtube.com/embed/TKdsfqZwfWs" allowfullscreen title="Video 6"></iframe>
+          <div class="vid-card-desc">Video 6</div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-    const AddBtn = ({label, onClick}) => (
-      <button className="add-btn" onClick={onClick}>+ {label}</button>
-    );
+  <!-- ══ MARKETING CAMPAIGNS ══ -->
+  <hr class="divider" />
+  <section>
+    <div class="sec-inner">
+      <div class="sec-header">
+        <div class="sec-header-line-wrap">
+          <div class="sec-header-line"></div>
+          <span class="sec-header-label">Section</span>
+          <div class="sec-header-line"></div>
+        </div>
+        <h2>Marketing Campaigns</h2>
+      </div>
+      <div class="grid-3">
+        <div class="img-card card-hover"><img src="ad1.jpg" alt="Campaign 1" /><div class="img-card-desc">Campaign 1</div></div>
+        <div class="img-card card-hover"><img src="ad2.jpg" alt="Campaign 2" /><div class="img-card-desc">Campaign 2</div></div>
+        <div class="img-card card-hover"><img src="ad3.jpg" alt="Campaign 3" /><div class="img-card-desc">Campaign 3</div></div>
+      </div>
+    </div>
+  </section>
 
-    /* ══ MAIN APP ══ */
-    function App() {
-      const [avatar, setAvatar] = useState(null);
-      const [jobTitle, setJobTitle] = useState("اكتب مسماك الوظيفي");
-      const [bio, setBio] = useState("اكتب نبذة تعريفية عنك هنا...");
-      const [editJob, setEditJob] = useState(false); const [draftJob, setDraftJob] = useState(jobTitle);
-      const [editBio, setEditBio] = useState(false); const [draftBio, setDraftBio] = useState(bio);
-      const avatarRef = useRef();
+  <!-- ══ FOOTER ══ -->
+  <hr class="divider" />
+  <footer>
+    <div class="footer-inner">
+      <a class="fb-btn" href="https://www.facebook.com/01118929196" target="_blank" rel="noreferrer">f</a>
+      <div class="footer-contacts">
+        <span>📧 eltayeb.shetos@gmail.com</span>
+        <span>📍 Luxor - Armant</span>
+        <span>📞 01118929196</span>
+      </div>
+      <p class="footer-copy">© 2026 Eltayeb Youssef Mohammed — All rights reserved</p>
+    </div>
+  </footer>
 
-      const [h1,setH1] = useState("أعمالي المميزة");
-      const [imgs1,setImgs1] = useState([{id:1},{id:2}]);
-      const [h2,setH2] = useState("أعمال الفيديو");
-      const [vids,setVids] = useState([{id:1}]);
-      const [h3,setH3] = useState("معرض الصور");
-      const [imgs2,setImgs2] = useState([{id:1}]);
-      const [tests,setTests] = useState([]);
-
-      const [fbNum,setFbNum] = useState("01000000000");
-      const [email,setEmail] = useState("email@example.com");
-      const [address,setAddress] = useState("القاهرة، مصر");
-      const [insta,setInsta] = useState("@yourhandle");
-      const [editContact,setEditContact] = useState(false);
-
-      const uid = () => Date.now() + Math.random();
-
-      return (
-        <>
-          {/* ── HERO ── */}
-          <div style={{background:"radial-gradient(ellipse at 70% -10%, #0d1f4a 0%, #050810 65%)",borderBottom:"1px solid #111e38"}}>
-            <div style={{maxWidth:1080,margin:"0 auto",padding:"80px 24px"}}>
-              <div style={{display:"flex",gap:48,alignItems:"center",flexWrap:"wrap"}}>
-
-                <div className="hero-text" style={{flexShrink:0}}>
-                  <div onClick={()=>avatarRef.current.click()} style={{
-                    width:175,height:175,borderRadius:"50%",cursor:"pointer",overflow:"hidden",
-                    border:`2px solid ${T.accent}`,background:T.bgCard,
-                    display:"flex",alignItems:"center",justifyContent:"center",
-                    boxShadow:`0 0 0 6px ${T.accentGlow}, 0 0 60px ${T.accentGlow}`
-                  }}>
-                    {avatar
-                      ? <img src={avatar} alt="" style={{width:"100%",height:"100%",objectFit:"cover"}} />
-                      : <div style={{textAlign:"center",color:T.textMuted}}>
-                          <div style={{fontSize:32,color:T.accent,opacity:.4}}>◎</div>
-                          <div style={{fontSize:11,marginTop:8,letterSpacing:2}}>رفع صورة</div>
-                        </div>
-                    }
-                  </div>
-                  <input ref={avatarRef} type="file" accept="image/*" style={{display:"none"}}
-                    onChange={e=>{const f=e.target.files[0];if(f)setAvatar(URL.createObjectURL(f));}} />
-                </div>
-
-                <div style={{flex:1,minWidth:260}}>
-                  <div className="hero-text" style={{display:"flex",alignItems:"center",gap:8,marginBottom:12}}>
-                    <div style={{width:28,height:2,background:T.accent}} />
-                    <span style={{fontSize:10,letterSpacing:3,color:T.accent,textTransform:"uppercase",fontWeight:600}}>Portfolio</span>
-                  </div>
-
-                  {editJob
-                    ? <div className="hero-text-2" style={{display:"flex",gap:10,marginBottom:16,alignItems:"center"}}>
-                        <input value={draftJob} onChange={e=>setDraftJob(e.target.value)} autoFocus
-                          style={{...inputSt,background:"transparent",border:"none",borderBottom:`1px solid ${T.accent}`,borderRadius:0,fontSize:17,fontWeight:500,flex:1}} />
-                        <button onClick={()=>{setJobTitle(draftJob);setEditJob(false);}} style={btnSmall}>Save</button>
-                      </div>
-                    : <p className="hero-text-2" style={{color:T.accent,fontSize:17,fontWeight:500,marginBottom:16,cursor:"pointer",letterSpacing:.5}}
-                        onClick={()=>{setDraftJob(jobTitle);setEditJob(true);}}>{jobTitle} ✏️</p>
-                  }
-
-                  {editBio
-                    ? <div className="hero-text-3">
-                        <textarea value={draftBio} onChange={e=>setDraftBio(e.target.value)} rows={4} autoFocus
-                          style={{...inputSt,width:"100%",lineHeight:1.7,resize:"vertical",maxWidth:520}} />
-                        <br/><button onClick={()=>{setBio(draftBio);setEditBio(false);}} style={{...btnPrimary,marginTop:10}}>Save</button>
-                      </div>
-                    : <p className="hero-text-3" style={{color:T.textSub,lineHeight:1.8,fontSize:15,cursor:"pointer",maxWidth:500}}
-                        onClick={()=>{setDraftBio(bio);setEditBio(true);}}>{bio} <span style={{color:T.accent,fontSize:11}}>✏️</span></p>
-                  }
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* ── IMAGES 1 ── */}
-          <hr className="divider" />
-          <section><div className="sec-inner">
-            <EditableHeader value={h1} onChange={setH1} />
-            <div className="grid-3">
-              {imgs1.map((it,i)=><ImageCard key={it.id} onRemove={()=>setImgs1(p=>p.filter((_,j)=>j!==i))} />)}
-            </div>
-            <AddBtn label="إضافة صورة" onClick={()=>setImgs1(p=>[...p,{id:uid()}])} />
-          </div></section>
-
-          {/* ── VIDEOS ── */}
-          <hr className="divider" />
-          <section className="sec-alt"><div className="sec-inner">
-            <EditableHeader value={h2} onChange={setH2} />
-            <div className="grid-video">
-              {vids.map((it,i)=><VideoCard key={it.id} onRemove={()=>setVids(p=>p.filter((_,j)=>j!==i))} />)}
-            </div>
-            <AddBtn label="إضافة فيديو" onClick={()=>setVids(p=>[...p,{id:uid()}])} />
-          </div></section>
-
-          {/* ── IMAGES 2 ── */}
-          <hr className="divider" />
-          <section><div className="sec-inner">
-            <EditableHeader value={h3} onChange={setH3} />
-            <div className="grid-3">
-              {imgs2.map((it,i)=><ImageCard key={it.id} onRemove={()=>setImgs2(p=>p.filter((_,j)=>j!==i))} />)}
-            </div>
-            <AddBtn label="إضافة صورة" onClick={()=>setImgs2(p=>[...p,{id:uid()}])} />
-          </div></section>
-
-          {/* ── TESTIMONIALS ── */}
-          <hr className="divider" />
-          <section className="sec-alt"><div className="sec-inner">
-            <EditableHeader value="آراء العملاء" onChange={()=>{}} />
-            {tests.length===0 && <p style={{textAlign:"center",color:T.textMuted,marginBottom:32,fontSize:13}}>لا يوجد آراء بعد</p>}
-            {tests.length>0 && <div className="grid-3" style={{gridTemplateColumns:"repeat(auto-fill,minmax(280px,1fr))"}}>
-              {tests.map((it,i)=><TestimonialCard key={it.id} onRemove={()=>setTests(p=>p.filter((_,j)=>j!==i))} />)}
-            </div>}
-            <AddBtn label="إضافة رأي عميل" onClick={()=>setTests(p=>[...p,{id:uid()}])} />
-          </div></section>
-
-          {/* ── FOOTER ── */}
-          <hr className="divider" />
-          <footer style={{background:T.footerBg,padding:"60px 24px 40px"}}>
-            <div style={{maxWidth:680,margin:"0 auto",textAlign:"center"}}>
-              <a href={`https://www.facebook.com/${fbNum}`} target="_blank" rel="noreferrer"
-                style={{display:"inline-flex",alignItems:"center",justifyContent:"center",width:52,height:52,borderRadius:"50%",background:"#1877f2",color:"#fff",fontSize:22,textDecoration:"none",marginBottom:32,boxShadow:"0 4px 24px rgba(24,119,242,.35)",transition:"transform .2s"}}
-                onMouseEnter={e=>e.currentTarget.style.transform="scale(1.12)"}
-                onMouseLeave={e=>e.currentTarget.style.transform="scale(1)"}
-              >f</a>
-
-              {editContact
-                ? <div style={{display:"flex",flexDirection:"column",gap:10,marginBottom:24,alignItems:"center"}}>
-                    {[["📧 الإيميل",email,setEmail],["📍 العنوان",address,setAddress],["📘 رقم فيسبوك",fbNum,setFbNum],["📸 انستجرام",insta,setInsta]].map(([lbl,val,set])=>(
-                      <div key={lbl} style={{display:"flex",gap:10,alignItems:"center"}}>
-                        <span style={{color:T.textMuted,fontSize:12,width:120,textAlign:"right"}}>{lbl}</span>
-                        <input value={val} onChange={e=>set(e.target.value)} style={{...inputSt,width:210}} />
-                      </div>
-                    ))}
-                    <button onClick={()=>setEditContact(false)} style={{...btnPrimary,marginTop:8}}>Save</button>
-                  </div>
-                : <>
-                    <div style={{display:"flex",gap:28,justifyContent:"center",flexWrap:"wrap",marginBottom:18}}>
-                      <span style={{color:T.textSub,fontSize:13}}>📧 {email}</span>
-                      <span style={{color:T.textSub,fontSize:13}}>📍 {address}</span>
-                      <span style={{color:T.textSub,fontSize:13}}>📸 {insta}</span>
-                    </div>
-                    <button onClick={()=>setEditContact(true)} style={{background:"transparent",border:`1px solid ${T.divider}`,color:T.textMuted,padding:"6px 18px",borderRadius:6,cursor:"pointer",fontSize:11}}>✏️ تعديل</button>
-                  </>
-              }
-              <p style={{color:T.textMuted,fontSize:11,marginTop:40,opacity:.4}}>© 2026 Portfolio</p>
-            </div>
-          </footer>
-        </>
-      );
-    }
-
-    ReactDOM.createRoot(document.getElementById("root")).render(<App />);
-  </script>
 </body>
 </html>
