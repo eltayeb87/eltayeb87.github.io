@@ -1,513 +1,393 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Portfolio | اسمك هنا</title>
-<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
-<style>
-  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portfolio — Midnight Blue</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Inter', sans-serif; background: #050810; color: #e8edf8; }
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: #050810; }
+    ::-webkit-scrollbar-thumb { background: #4f8ef7; border-radius: 4px; }
 
-  :root {
-    --gold: #C9A84C;
-    --gold-light: #F0D080;
-    --dark: #0D0D0D;
-    --dark2: #181818;
-    --dark3: #242424;
-    --text: #F5F0E8;
-    --text-muted: #9A9080;
-  }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .hero-text  { animation: fadeUp .8s ease both; }
+    .hero-text-2{ animation: fadeUp .8s .15s ease both; }
+    .hero-text-3{ animation: fadeUp .8s .30s ease both; }
 
-  body {
-    font-family: 'Cairo', sans-serif;
-    background: var(--dark);
-    color: var(--text);
-    overflow-x: hidden;
-    direction: rtl;
-  }
+    .card-hover { transition: transform .25s, box-shadow .25s; }
+    .card-hover:hover { transform: translateY(-6px); box-shadow: 0 16px 48px rgba(79,142,247,.18); }
 
-  /* ========== NAV ========== */
-  nav {
-    position: fixed;
-    top: 0; left: 0; right: 0;
-    z-index: 100;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1.2rem 3rem;
-    background: rgba(13,13,13,0.85);
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid rgba(201,168,76,0.15);
-  }
-  .nav-logo { font-size: 1.4rem; font-weight: 900; color: var(--gold); letter-spacing: 2px; }
-  .nav-links { display: flex; gap: 2rem; list-style: none; }
-  .nav-links a {
-    color: var(--text-muted); text-decoration: none;
-    font-size: 0.9rem; font-weight: 600; transition: color 0.3s; cursor: pointer;
-  }
-  .nav-links a:hover { color: var(--gold); }
+    .add-btn { display:flex;align-items:center;gap:8px;background:transparent;border:1px dashed #3d4f72;color:#8a9bc0;padding:12px 28px;border-radius:10px;cursor:pointer;font-size:13px;margin:0 auto;transition:all .2s;font-family:'Inter',sans-serif; }
+    .add-btn:hover { border-color:#4f8ef7; color:#4f8ef7; }
 
-  /* ========== HERO / BIO ========== */
-  .hero {
-    min-height: 100vh;
-    display: flex; align-items: center; justify-content: center;
-    position: relative; padding: 6rem 3rem 4rem; overflow: hidden;
-  }
-  .hero-bg {
-    position: absolute; inset: 0;
-    background: radial-gradient(ellipse 80% 60% at 50% 40%, rgba(201,168,76,0.08) 0%, transparent 70%);
-    pointer-events: none;
-  }
-  .hero-grid {
-    position: absolute; inset: 0;
-    background-image:
-      linear-gradient(rgba(201,168,76,0.04) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(201,168,76,0.04) 1px, transparent 1px);
-    background-size: 60px 60px; pointer-events: none;
-  }
-  .hero-content { text-align: center; position: relative; max-width: 800px; }
-  .hero-badge {
-    display: inline-block;
-    background: rgba(201,168,76,0.12); border: 1px solid rgba(201,168,76,0.3);
-    color: var(--gold); font-size: 0.8rem; font-weight: 600;
-    padding: 0.4rem 1.2rem; border-radius: 50px; margin-bottom: 1.5rem;
-    letter-spacing: 2px; text-transform: uppercase;
-    animation: fadeDown 0.8s ease both;
-  }
-  .hero-name {
-    font-size: clamp(3rem, 8vw, 6rem); font-weight: 900; line-height: 1.05;
-    margin-bottom: 0.5rem; animation: fadeDown 0.8s 0.15s ease both;
-  }
-  .hero-name span { color: var(--gold); display: block; }
-  .hero-title {
-    font-size: clamp(1rem, 2.5vw, 1.4rem); color: var(--text-muted); font-weight: 400;
-    margin-bottom: 1.5rem; animation: fadeDown 0.8s 0.3s ease both;
-  }
-  .hero-bio {
-    font-size: 1rem; color: rgba(245,240,232,0.7); line-height: 1.9;
-    max-width: 600px; margin: 0 auto 2.5rem; animation: fadeDown 0.8s 0.45s ease both;
-  }
-  .hero-stats {
-    display: flex; justify-content: center; gap: 3rem; margin-bottom: 2.5rem;
-    animation: fadeDown 0.8s 0.6s ease both;
-  }
-  .stat-item { text-align: center; }
-  .stat-num { font-size: 2rem; font-weight: 900; color: var(--gold); display: block; }
-  .stat-label { font-size: 0.8rem; color: var(--text-muted); font-weight: 600; }
-  .hero-cta { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; animation: fadeDown 0.8s 0.75s ease both; }
+    hr.divider { border:none; border-top:1px solid #111e38; margin:0; }
 
-  /* ========== BUTTONS ========== */
-  .btn-primary {
-    background: var(--gold); color: var(--dark); border: none;
-    padding: 0.85rem 2.5rem; border-radius: 50px;
-    font-family: 'Cairo', sans-serif; font-weight: 700; font-size: 0.95rem;
-    cursor: pointer; transition: all 0.3s;
-  }
-  .btn-primary:hover { background: var(--gold-light); transform: translateY(-2px); }
-  .btn-secondary {
-    background: transparent; color: var(--text); border: 1px solid rgba(245,240,232,0.25);
-    padding: 0.85rem 2.5rem; border-radius: 50px;
-    font-family: 'Cairo', sans-serif; font-weight: 600; font-size: 0.95rem;
-    cursor: pointer; transition: all 0.3s;
-  }
-  .btn-secondary:hover { border-color: var(--gold); color: var(--gold); transform: translateY(-2px); }
+    section { }
+    .sec-inner { max-width:1080px; margin:0 auto; padding:80px 24px; }
+    .sec-alt { background:#080d1a; }
 
-  /* ========== SECTION COMMON ========== */
-  .section-wrap { padding: 6rem 3rem; max-width: 1200px; margin: 0 auto; }
-  .section-header { text-align: center; margin-bottom: 4rem; }
-  .section-label { font-size: 0.75rem; font-weight: 700; letter-spacing: 3px; color: var(--gold); text-transform: uppercase; margin-bottom: 0.75rem; }
-  .section-title { font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 900; line-height: 1.2; }
-  .section-title span { color: var(--gold); }
-  .divider { width: 60px; height: 2px; background: var(--gold); margin: 1rem auto 0; }
+    .grid-3 { display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:18px; margin-bottom:32px; }
+    .grid-video { display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:18px; margin-bottom:32px; }
 
-  /* ========== PROJECTS ========== */
-  /*
-    كيفية إضافة مشروع:
-    - انسخ الـ div اللي class بتاعتها "project-card"
-    - غيّر الاسم والوصف والتاج
-    - في project-placeholder غيّر الـ src بتاع الصورة
-    - أو احذف project-placeholder وحط <img src="صورتك.jpg" class="project-img">
-  */
-  .projects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem; }
-  .project-card {
-    background: var(--dark2); border: 1px solid rgba(201,168,76,0.1);
-    border-radius: 16px; overflow: hidden; cursor: pointer; transition: all 0.4s;
-  }
-  .project-card:hover { transform: translateY(-6px); border-color: rgba(201,168,76,0.4); box-shadow: 0 20px 40px rgba(0,0,0,0.4); }
-  .project-img { width: 100%; aspect-ratio: 16/10; object-fit: cover; display: block; }
-  .project-placeholder {
-    width: 100%; aspect-ratio: 16/10;
-    background: var(--dark3);
-    display: flex; align-items: center; justify-content: center;
-    flex-direction: column; gap: 0.5rem;
-    border-bottom: 1px solid rgba(201,168,76,0.1);
-    color: var(--text-muted); font-size: 0.85rem; font-weight: 600;
-  }
-  .project-placeholder::before {
-    content: '🖼️'; font-size: 2rem; display: block; opacity: 0.4; margin-bottom: 0.25rem;
-  }
-  .project-info { padding: 1.25rem; }
-  .project-tag {
-    display: inline-block; background: rgba(201,168,76,0.12); color: var(--gold);
-    font-size: 0.7rem; font-weight: 700; padding: 0.25rem 0.75rem;
-    border-radius: 20px; margin-bottom: 0.6rem; letter-spacing: 1px;
-  }
-  .project-name { font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem; }
-  .project-desc { font-size: 0.85rem; color: var(--text-muted); line-height: 1.6; }
-
-  /* ========== VIDEOS ========== */
-  /*
-    كيفية إضافة فيديو يوتيوب:
-    - خذ الـ video ID من لينك اليوتيوب مثلاً: https://www.youtube.com/watch?v=XXXXXXXXXXX
-    - في الـ iframe اللي في video-embed، غيّر "XXXXXXXXXXX" بالـ ID الحقيقي
-    - غيّر العنوان في video-title
-  */
-  .videos-bg { background: var(--dark2); border-top: 1px solid rgba(201,168,76,0.08); border-bottom: 1px solid rgba(201,168,76,0.08); }
-  .videos-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem; }
-  .video-card {
-    background: var(--dark3); border: 1px solid rgba(201,168,76,0.1);
-    border-radius: 14px; overflow: hidden; transition: all 0.3s;
-  }
-  .video-card:hover { border-color: rgba(201,168,76,0.3); transform: translateY(-4px); }
-  .video-embed { width: 100%; aspect-ratio: 16/9; border: none; display: block; }
-  .video-placeholder {
-    width: 100%; aspect-ratio: 16/9;
-    background: var(--dark); display: flex; align-items: center; justify-content: center;
-    flex-direction: column; gap: 0.5rem; border-bottom: 1px solid rgba(201,168,76,0.08);
-    color: var(--text-muted); font-size: 0.82rem; font-weight: 600;
-  }
-  .video-placeholder::before { content: '🎬'; font-size: 2rem; display: block; opacity: 0.4; }
-  .video-info { padding: 0.9rem 1rem 1.1rem; }
-  .video-title { font-size: 0.95rem; font-weight: 700; margin-bottom: 0.25rem; }
-  .video-sub { font-size: 0.78rem; color: var(--text-muted); }
-
-  /* ========== ADD MORE ========== */
-  .add-more-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1rem; margin-top: 3rem; }
-  .add-card {
-    background: var(--dark2); border: 1px dashed rgba(201,168,76,0.2);
-    border-radius: 14px; padding: 2rem 1rem; cursor: pointer; transition: all 0.3s; text-align: center;
-  }
-  .add-card:hover { background: var(--dark3); border-color: rgba(201,168,76,0.5); transform: translateY(-3px); }
-  .add-card-icon { font-size: 2rem; margin-bottom: 0.75rem; display: block; opacity: 0.6; }
-  .add-card-title { font-size: 0.95rem; font-weight: 700; margin-bottom: 0.4rem; }
-  .add-card-sub { font-size: 0.78rem; color: var(--text-muted); line-height: 1.5; }
-
-  /* ========== SKILLS ========== */
-  .skills-bg { background: var(--dark2); border-top: 1px solid rgba(201,168,76,0.08); border-bottom: 1px solid rgba(201,168,76,0.08); }
-  .skills-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem; }
-  .skill-group { background: var(--dark3); border: 1px solid rgba(201,168,76,0.1); border-radius: 16px; padding: 1.5rem; }
-  .skill-group-title { font-size: 1rem; font-weight: 700; color: var(--gold); margin-bottom: 1rem; padding-bottom: 0.75rem; border-bottom: 1px solid rgba(201,168,76,0.15); }
-  .skill-item { display: flex; align-items: center; gap: 0.6rem; font-size: 0.88rem; color: rgba(245,240,232,0.8); padding: 0.4rem 0; }
-  .skill-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--gold); flex-shrink: 0; }
-
-  /* ========== CERTIFICATES ========== */
-  .certs-grid { display: flex; flex-direction: column; gap: 1rem; }
-  .cert-card { display: flex; align-items: center; gap: 1.25rem; background: var(--dark2); border: 1px solid rgba(201,168,76,0.12); border-radius: 14px; padding: 1.25rem 1.5rem; transition: all 0.3s; }
-  .cert-card:hover { border-color: rgba(201,168,76,0.4); transform: translateX(-4px); }
-  .cert-icon { font-size: 2rem; flex-shrink: 0; }
-  .cert-body { flex: 1; }
-  .cert-name { font-size: 1rem; font-weight: 700; margin-bottom: 0.25rem; }
-  .cert-issuer { font-size: 0.82rem; color: var(--text-muted); }
-  .cert-badge { background: rgba(201,168,76,0.12); color: var(--gold); font-size: 0.72rem; font-weight: 700; padding: 0.3rem 0.9rem; border-radius: 20px; letter-spacing: 1px; white-space: nowrap; }
-
-  /* ========== CONTACT ========== */
-  .contact-section { background: var(--dark2); border-top: 1px solid rgba(201,168,76,0.08); padding: 6rem 3rem; }
-  .contact-inner { max-width: 700px; margin: 0 auto; text-align: center; }
-  .contact-links { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; margin-top: 2.5rem; }
-  .contact-btn {
-    display: flex; align-items: center; gap: 0.6rem;
-    background: var(--dark3); border: 1px solid rgba(201,168,76,0.15);
-    color: var(--text); padding: 0.75rem 1.5rem; border-radius: 50px;
-    font-family: 'Cairo', sans-serif; font-size: 0.9rem; font-weight: 600;
-    cursor: pointer; text-decoration: none; transition: all 0.3s;
-  }
-  .contact-btn:hover { border-color: var(--gold); color: var(--gold); transform: translateY(-2px); }
-
-  /* ========== FOOTER ========== */
-  footer { text-align: center; padding: 2rem; font-size: 0.8rem; color: var(--text-muted); border-top: 1px solid rgba(201,168,76,0.08); }
-  footer span { color: var(--gold); }
-
-  /* ========== ANIMATIONS ========== */
-  @keyframes fadeDown {
-    from { opacity: 0; transform: translateY(-20px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
-  .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.7s ease, transform 0.7s ease; }
-  .reveal.visible { opacity: 1; transform: translateY(0); }
-
-  /* ========== RESPONSIVE ========== */
-  @media (max-width: 700px) {
-    nav { padding: 1rem 1.5rem; }
-    .section-wrap { padding: 4rem 1.5rem; }
-    .hero { padding: 6rem 1.5rem 4rem; }
-    .hero-stats { gap: 1.5rem; }
-    .nav-links { gap: 1rem; }
-    .contact-section { padding: 4rem 1.5rem; }
-  }
-</style>
+    input, textarea, button { font-family:'Inter',sans-serif; }
+  </style>
 </head>
 <body>
+  <div id="root"></div>
 
-<!-- ===== NAV ===== -->
-<nav>
-  <div class="nav-logo">PORTFOLIO</div>
-  <ul class="nav-links">
-    <li><a href="#bio">من أنا</a></li>
-    <li><a href="#projects">أعمالي</a></li>
-    <li><a href="#videos">فيديوهات</a></li>
-    <li><a href="#skills">Skills</a></li>
-    <li><a href="#certificates">Certificates</a></li>
-    <li><a href="#contact">تواصل</a></li>
-  </ul>
-</nav>
+  <script type="text/babel">
+    const { useState, useRef } = React;
 
-<!-- ===== HERO / BIO ===== -->
-<!-- 🔧 عدّل: الاسم، التخصص، البيو، والإحصائيات -->
-<div class="hero" id="bio">
-  <div class="hero-bg"></div>
-  <div class="hero-grid"></div>
-  <div class="hero-content">
-    <div class="hero-badge">✦ Media Buyer | Content Creator</div>
-    <h1 class="hero-name">
-      Eltayeb Youssef
-      <span>Mohammed</span>
-    </h1>
-    <p class="hero-title">Media Buyer · Content Creator · Visual Designer</p>
-    <p class="hero-bio">
-      مصمم جرافيك شغوف بصنع تجارب بصرية استثنائية.
-      شغلي مش مجرد تصميم — هو قصة بتتحكى بالألوان والأشكال.
-      بحول الأفكار لأعمال فنية تترك أثر.
-    </p>
-    <div class="hero-stats">
-      <div class="stat-item">
-        <span class="stat-num">12+</span><!-- 🔧 غيّر الرقم -->
-        <span class="stat-label">مشروع</span>
-      </div>
-      <div class="stat-item">
-        <span class="stat-num">3+</span><!-- 🔧 غيّر الرقم -->
-        <span class="stat-label">سنوات خبرة</span>
-      </div>
-      <div class="stat-item">
-        <span class="stat-num">100%</span>
-        <span class="stat-label">عملاء راضيين</span>
-      </div>
-    </div>
-    <div class="hero-cta">
-      <a class="btn-primary" href="#projects">شوف أعمالي</a>
-      <a class="btn-secondary" href="#contact">تواصل معايا</a>
-    </div>
-  </div>
-</div>
+    const T = {
+      bg:        "#050810",
+      bgCard:    "#0b1120",
+      bgSection: "#080d1a",
+      border:    "#1a2540",
+      accent:    "#4f8ef7",
+      accentGlow:"rgba(79,142,247,.18)",
+      accentDim: "#2a5cbf",
+      text:      "#e8edf8",
+      textSub:   "#8a9bc0",
+      textMuted: "#3d4f72",
+      divider:   "#111e38",
+      footerBg:  "#030509",
+    };
 
-<!-- ===== PROJECTS ===== -->
-<!--
-  🔧 كيفية إضافة مشروع:
-  1. انسخ الـ <div class="project-card"> الكاملة
-  2. غيّر النص في project-tag و project-name و project-desc
-  3. عشان تضيف صورة:
-     - احذف الـ <div class="project-placeholder">
-     - حطّ بدلها: <img src="اسم-الصورة.jpg" class="project-img" alt="اسم المشروع">
-     - لازم الصورة تكون في نفس فولدر الـ HTML
--->
-<div class="section-wrap" id="projects">
-  <div class="section-header reveal">
-    <p class="section-label">✦ معرض الأعمال</p>
-    <h2 class="section-title">تصميماتي بالـ <span>Photoshop</span></h2>
-    <div class="divider"></div>
-  </div>
-  <div class="projects-grid">
+    const btnPrimary = {
+      background:`linear-gradient(135deg,${T.accent},${T.accentDim})`,
+      border:"none", color:"#fff", fontWeight:600,
+      padding:"10px 28px", borderRadius:8, cursor:"pointer",
+      fontSize:13, letterSpacing:".5px",
+      boxShadow:`0 4px 20px ${T.accentGlow}`
+    };
+    const btnSmall = {
+      background:T.accent, border:"none", color:"#fff",
+      padding:"6px 14px", borderRadius:6, cursor:"pointer", fontSize:12, fontWeight:600
+    };
+    const inputSt = {
+      background:T.bgCard, border:`1px solid ${T.border}`,
+      borderRadius:7, color:T.text, padding:"8px 12px", fontSize:13, outline:"none"
+    };
 
-    <!-- مشروع 1 -->
-    <div class="project-card reveal">
-      <!-- <img src="project1.jpg" class="project-img" alt="هوية بصرية"> -->
-      <div class="project-placeholder">ضع صورة المشروع هنا</div>
-      <div class="project-info">
-        <span class="project-tag">هوية بصرية</span>
-        <div class="project-name">هوية بصرية | شركة X</div>
-        <div class="project-desc">تصميم كامل للهوية البصرية من لوجو وألوان وتايبوجرافي</div>
-      </div>
-    </div>
-
-    <!-- مشروع 2 -->
-    <div class="project-card reveal">
-      <!-- <img src="project2.jpg" class="project-img" alt="بوستر"> -->
-      <div class="project-placeholder">ضع صورة المشروع هنا</div>
-      <div class="project-info">
-        <span class="project-tag">بوستر</span>
-        <div class="project-name">بوستر حملة رمضان</div>
-        <div class="project-desc">تصميم بوستر إعلاني لحملة رمضانية احترافية</div>
-      </div>
-    </div>
-
-    <!-- مشروع 3 -->
-    <div class="project-card reveal">
-      <!-- <img src="project3.jpg" class="project-img" alt="لوجو"> -->
-      <div class="project-placeholder">ضع صورة المشروع هنا</div>
-      <div class="project-info">
-        <span class="project-tag">لوجو</span>
-        <div class="project-name">تصميم لوجو | مطعم</div>
-        <div class="project-desc">لوجو مودرن لمطعم متخصص في المأكولات الشرقية</div>
-      </div>
-    </div>
-
-    <!-- ➕ انسخ الـ block اللي فوق وزيد مشاريع هنا -->
-
-  </div>
-</div>
-
-<!-- ===== VIDEOS ===== -->
-<!--
-  🔧 كيفية إضافة فيديو يوتيوب:
-  1. روح على الفيديو في يوتيوب
-  2. اضغط Share > Embed، أو خذ الـ ID من اللينك (الحروف بعد ?v=)
-  3. في الـ <iframe> غيّر VIDEO_ID_HERE بالـ ID الحقيقي
-  4. غيّر العنوان في video-title
-
-  مثال: https://www.youtube.com/watch?v=dQw4w9WgXcQ
-  الـ ID هو: dQw4w9WgXcQ
--->
-<div class="videos-bg" id="videos">
-  <div class="section-wrap">
-    <div class="section-header reveal">
-      <p class="section-label">✦ محتوى مرئي</p>
-      <h2 class="section-title">الـ <span>فيديوهات</span></h2>
-      <div class="divider"></div>
-    </div>
-    <div class="videos-grid">
-
-      <!-- فيديو 1 -->
-      <div class="video-card reveal">
-        <!-- 🔧 شيل الـ video-placeholder واحط الـ iframe بدلها -->
-        <div class="video-placeholder">ضع الفيديو هنا</div>
-        <!-- <iframe class="video-embed" src="https://www.youtube.com/embed/VIDEO_ID_HERE" allowfullscreen></iframe> -->
-        <div class="video-info">
-          <div class="video-title">عملية تصميم الهوية البصرية</div>
-          <div class="video-sub">يوتيوب</div>
+    /* ── Editable Header ── */
+    function EditableHeader({ value, onChange }) {
+      const [editing, setEditing] = useState(false);
+      const [draft, setDraft] = useState(value);
+      const save = () => { onChange(draft); setEditing(false); };
+      return (
+        <div style={{textAlign:"center",marginBottom:56}}>
+          {editing
+            ? <div style={{display:"flex",flexDirection:"column",alignItems:"center",gap:14}}>
+                <input value={draft} onChange={e=>setDraft(e.target.value)} autoFocus
+                  style={{...inputSt,fontSize:"clamp(1.6rem,4vw,2.8rem)",fontFamily:"'Cormorant Garamond',serif",
+                    fontWeight:700,textAlign:"center",width:"100%",maxWidth:640,
+                    background:"transparent",border:"none",borderBottom:`2px solid ${T.accent}`,borderRadius:0}} />
+                <button onClick={save} style={btnPrimary}>Save</button>
+              </div>
+            : <div style={{cursor:"pointer",display:"inline-block"}} onClick={()=>{setDraft(value);setEditing(true);}}>
+                <div style={{display:"flex",alignItems:"center",gap:8,justifyContent:"center",marginBottom:10}}>
+                  <div style={{height:1,width:48,background:T.accent,opacity:.4}} />
+                  <span style={{color:T.accent,fontSize:11,letterSpacing:3,textTransform:"uppercase",fontWeight:600}}>Section</span>
+                  <div style={{height:1,width:48,background:T.accent,opacity:.4}} />
+                </div>
+                <h2 style={{fontFamily:"'Cormorant Garamond',serif",fontSize:"clamp(1.8rem,4vw,3rem)",fontWeight:700,color:T.text,letterSpacing:"-0.5px"}}>
+                  {value} <span style={{fontSize:13,color:T.accent,opacity:.7}}>✏️</span>
+                </h2>
+              </div>
+          }
         </div>
-      </div>
+      );
+    }
 
-      <!-- فيديو 2 -->
-      <div class="video-card reveal">
-        <div class="video-placeholder">ضع الفيديو هنا</div>
-        <!-- <iframe class="video-embed" src="https://www.youtube.com/embed/VIDEO_ID_HERE" allowfullscreen></iframe> -->
-        <div class="video-info">
-          <div class="video-title">Speed Art | Photoshop</div>
-          <div class="video-sub">يوتيوب</div>
+    /* ── Image Card ── */
+    function ImageCard({ onRemove }) {
+      const [img, setImg] = useState(null);
+      const [desc, setDesc] = useState("اكتب وصف هنا...");
+      const [editDesc, setEditDesc] = useState(false);
+      const [draftDesc, setDraftDesc] = useState(desc);
+      const ref = useRef();
+      return (
+        <div className="card-hover" style={{background:T.bgCard,border:`1px solid ${T.border}`,borderRadius:14,overflow:"hidden"}}>
+          <div style={{width:"100%",aspectRatio:"4/3",background:T.bgSection,cursor:"pointer",position:"relative"}}
+            onClick={()=>ref.current.click()}>
+            {img
+              ? <img src={img} alt="" style={{width:"100%",height:"100%",objectFit:"cover"}} />
+              : <div style={{width:"100%",height:"100%",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",gap:8,color:T.textMuted}}>
+                  <span style={{fontSize:30,color:T.accent,opacity:.5}}>⬡</span>
+                  <span style={{fontSize:12,letterSpacing:2,textTransform:"uppercase"}}>Browse</span>
+                </div>
+            }
+            <input ref={ref} type="file" accept="image/*" style={{display:"none"}}
+              onChange={e=>{const f=e.target.files[0];if(f)setImg(URL.createObjectURL(f));}} />
+            <div style={{position:"absolute",top:10,right:10,width:8,height:8,borderRadius:"50%",background:T.accent,opacity:img?1:0}} />
+          </div>
+          <div style={{padding:"12px 14px"}}>
+            {editDesc
+              ? <div style={{display:"flex",gap:8}}>
+                  <input value={draftDesc} onChange={e=>setDraftDesc(e.target.value)} autoFocus style={{...inputSt,flex:1,fontSize:12}} />
+                  <button onClick={()=>{setDesc(draftDesc);setEditDesc(false);}} style={btnSmall}>Save</button>
+                </div>
+              : <p style={{fontSize:12,color:T.textSub,cursor:"pointer",lineHeight:1.6}}
+                  onClick={()=>{setDraftDesc(desc);setEditDesc(true);}}>{desc}</p>
+            }
+          </div>
+          <button onClick={onRemove} style={{margin:"0 14px 12px",background:"transparent",border:`1px solid ${T.divider}`,color:T.textMuted,borderRadius:5,padding:"3px 8px",fontSize:11,cursor:"pointer"}}>حذف</button>
         </div>
-      </div>
+      );
+    }
 
-      <!-- ➕ انسخ الـ block اللي فوق وزيد فيديوهات هنا -->
+    /* ── Video Card ── */
+    function VideoCard({ onRemove }) {
+      const [src, setSrc] = useState(null);
+      const [url, setUrl] = useState("");
+      const [mode, setMode] = useState("idle");
+      const [desc, setDesc] = useState("وصف الفيديو...");
+      const [editDesc, setEditDesc] = useState(false);
+      const [draftDesc, setDraftDesc] = useState(desc);
+      const ref = useRef();
+      const applyUrl = () => { if(url.trim()){setSrc(url.trim());setMode("idle");} };
+      const embedSrc = s => {
+        const yt = s.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([a-zA-Z0-9_-]+)/);
+        return yt ? `https://www.youtube.com/embed/${yt[1]}` : s;
+      };
+      return (
+        <div style={{background:T.bgCard,border:`1px solid ${T.border}`,borderRadius:14,overflow:"hidden"}}>
+          <div style={{width:"100%",aspectRatio:"16/9",background:T.bgSection}}>
+            {src
+              ? (src.startsWith("blob:")
+                ? <video src={src} controls style={{width:"100%",height:"100%",objectFit:"cover"}} />
+                : <iframe src={embedSrc(src)} style={{width:"100%",height:"100%",border:"none"}} allowFullScreen title="v" />)
+              : <div style={{width:"100%",height:"100%",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",gap:14}}>
+                  <span style={{fontSize:34,color:T.accent,opacity:.4}}>▶</span>
+                  <div style={{display:"flex",gap:10}}>
+                    <button onClick={()=>{setMode("file");setTimeout(()=>ref.current?.click(),10);}} style={btnSmall}>📁 رفع</button>
+                    <button onClick={()=>setMode("url")} style={btnSmall}>🔗 رابط</button>
+                  </div>
+                  {mode==="url" && <div style={{display:"flex",gap:8,width:"85%",maxWidth:300}}>
+                    <input value={url} onChange={e=>setUrl(e.target.value)} placeholder="https://..." autoFocus style={{...inputSt,flex:1,fontSize:12}} />
+                    <button onClick={applyUrl} style={btnSmall}>OK</button>
+                  </div>}
+                  <input ref={ref} type="file" accept="video/*" style={{display:"none"}}
+                    onChange={e=>{const f=e.target.files[0];if(f){setSrc(URL.createObjectURL(f));setMode("idle");}}} />
+                </div>
+            }
+          </div>
+          <div style={{padding:"12px 14px"}}>
+            {editDesc
+              ? <div style={{display:"flex",gap:8}}>
+                  <input value={draftDesc} onChange={e=>setDraftDesc(e.target.value)} autoFocus style={{...inputSt,flex:1,fontSize:12}} />
+                  <button onClick={()=>{setDesc(draftDesc);setEditDesc(false);}} style={btnSmall}>Save</button>
+                </div>
+              : <p style={{fontSize:12,color:T.textSub,cursor:"pointer"}} onClick={()=>{setDraftDesc(desc);setEditDesc(true);}}>{desc}</p>
+            }
+          </div>
+          <button onClick={onRemove} style={{margin:"0 14px 12px",background:"transparent",border:`1px solid ${T.divider}`,color:T.textMuted,borderRadius:5,padding:"3px 8px",fontSize:11,cursor:"pointer"}}>حذف</button>
+        </div>
+      );
+    }
 
-    </div>
-  </div>
-</div>
+    /* ── Testimonial ── */
+    function TestimonialCard({ onRemove }) {
+      const [name, setName] = useState("اسم العميل");
+      const [text, setText] = useState("رأي العميل في العمل...");
+      const [editName, setEditName] = useState(false);
+      const [editText, setEditText] = useState(false);
+      return (
+        <div style={{background:T.bgCard,border:`1px solid ${T.border}`,borderRadius:14,padding:24,position:"relative"}}>
+          <div style={{width:36,height:3,background:T.accent,borderRadius:2,marginBottom:16}} />
+          {editText
+            ? <div style={{marginBottom:14}}>
+                <textarea value={text} onChange={e=>setText(e.target.value)} rows={3} autoFocus
+                  style={{...inputSt,width:"100%",resize:"vertical",lineHeight:1.6}} />
+                <button onClick={()=>setEditText(false)} style={{...btnSmall,marginTop:8}}>Save</button>
+              </div>
+            : <p style={{color:T.textSub,fontSize:14,lineHeight:1.8,marginBottom:16,cursor:"pointer"}} onClick={()=>setEditText(true)}>{text}</p>
+          }
+          {editName
+            ? <div style={{display:"flex",gap:8}}>
+                <input value={name} onChange={e=>setName(e.target.value)} autoFocus style={{...inputSt,flex:1,fontSize:12}} />
+                <button onClick={()=>setEditName(false)} style={btnSmall}>Save</button>
+              </div>
+            : <p style={{color:T.accent,fontSize:12,fontWeight:600,cursor:"pointer",letterSpacing:1}} onClick={()=>setEditName(true)}>— {name}</p>
+          }
+          <button onClick={onRemove} style={{position:"absolute",top:12,left:12,background:"transparent",border:"none",color:T.textMuted,cursor:"pointer",fontSize:14}}>✕</button>
+        </div>
+      );
+    }
 
-<!-- ===== SKILLS ===== -->
-<div class="skills-bg" id="skills">
-  <div class="section-wrap">
-    <div class="section-header reveal">
-      <p class="section-label">✦ What I Do</p>
-      <h2 class="section-title">Skills &amp; <span>Tools</span></h2>
-      <div class="divider"></div>
-    </div>
-    <div class="skills-grid">
+    const AddBtn = ({label, onClick}) => (
+      <button className="add-btn" onClick={onClick}>+ {label}</button>
+    );
 
-      <div class="skill-group reveal">
-        <div class="skill-group-title">📢 Advertising</div>
-        <div class="skill-item"><span class="skill-dot"></span>Meta Ads Management (Facebook &amp; Instagram)</div>
-        <div class="skill-item"><span class="skill-dot"></span>Google Ads Campaign Management</div>
-        <div class="skill-item"><span class="skill-dot"></span>Paid Media Buying</div>
-        <div class="skill-item"><span class="skill-dot"></span>Landing Page Creation</div>
-      </div>
+    /* ══ MAIN APP ══ */
+    function App() {
+      const [avatar, setAvatar] = useState(null);
+      const [jobTitle, setJobTitle] = useState("اكتب مسماك الوظيفي");
+      const [bio, setBio] = useState("اكتب نبذة تعريفية عنك هنا...");
+      const [editJob, setEditJob] = useState(false); const [draftJob, setDraftJob] = useState(jobTitle);
+      const [editBio, setEditBio] = useState(false); const [draftBio, setDraftBio] = useState(bio);
+      const avatarRef = useRef();
 
-      <div class="skill-group reveal">
-        <div class="skill-group-title">🎨 Design &amp; Content</div>
-        <div class="skill-item"><span class="skill-dot"></span>Social Media Creatives Design</div>
-        <div class="skill-item"><span class="skill-dot"></span>AI Content Production</div>
-        <div class="skill-item"><span class="skill-dot"></span>Canva</div>
-        <div class="skill-item"><span class="skill-dot"></span>Photoshop</div>
-        <div class="skill-item"><span class="skill-dot"></span>Illustrator</div>
-      </div>
+      const [h1,setH1] = useState("أعمالي المميزة");
+      const [imgs1,setImgs1] = useState([{id:1},{id:2}]);
+      const [h2,setH2] = useState("أعمال الفيديو");
+      const [vids,setVids] = useState([{id:1}]);
+      const [h3,setH3] = useState("معرض الصور");
+      const [imgs2,setImgs2] = useState([{id:1}]);
+      const [tests,setTests] = useState([]);
 
-      <div class="skill-group reveal">
-        <div class="skill-group-title">💻 Tech &amp; Productivity</div>
-        <div class="skill-item"><span class="skill-dot"></span>Notion</div>
-        <div class="skill-item"><span class="skill-dot"></span>Excel · Word · PowerPoint</div>
-        <div class="skill-item"><span class="skill-dot"></span>10-Key &amp; Typing</div>
-        <div class="skill-item"><span class="skill-dot"></span>Windows 10 / 11 / Server 2019</div>
-      </div>
+      const [fbNum,setFbNum] = useState("01000000000");
+      const [email,setEmail] = useState("email@example.com");
+      const [address,setAddress] = useState("القاهرة، مصر");
+      const [insta,setInsta] = useState("@yourhandle");
+      const [editContact,setEditContact] = useState(false);
 
-    </div>
-  </div>
-</div>
+      const uid = () => Date.now() + Math.random();
 
-<!-- ===== CERTIFICATES ===== -->
-<div class="section-wrap" id="certificates">
-  <div class="section-header reveal">
-    <p class="section-label">✦ Achievements</p>
-    <h2 class="section-title">Certificates &amp; <span>Courses</span></h2>
-    <div class="divider"></div>
-  </div>
-  <div class="certs-grid">
+      return (
+        <>
+          {/* ── HERO ── */}
+          <div style={{background:"radial-gradient(ellipse at 70% -10%, #0d1f4a 0%, #050810 65%)",borderBottom:"1px solid #111e38"}}>
+            <div style={{maxWidth:1080,margin:"0 auto",padding:"80px 24px"}}>
+              <div style={{display:"flex",gap:48,alignItems:"center",flexWrap:"wrap"}}>
 
-    <div class="cert-card reveal">
-      <div class="cert-icon">📊</div>
-      <div class="cert-body">
-        <div class="cert-name">Google Data Analytics Certificate</div>
-        <div class="cert-issuer">Google · Coursera</div>
-      </div>
-      <div class="cert-badge">Certified</div>
-    </div>
+                <div className="hero-text" style={{flexShrink:0}}>
+                  <div onClick={()=>avatarRef.current.click()} style={{
+                    width:175,height:175,borderRadius:"50%",cursor:"pointer",overflow:"hidden",
+                    border:`2px solid ${T.accent}`,background:T.bgCard,
+                    display:"flex",alignItems:"center",justifyContent:"center",
+                    boxShadow:`0 0 0 6px ${T.accentGlow}, 0 0 60px ${T.accentGlow}`
+                  }}>
+                    {avatar
+                      ? <img src={avatar} alt="" style={{width:"100%",height:"100%",objectFit:"cover"}} />
+                      : <div style={{textAlign:"center",color:T.textMuted}}>
+                          <div style={{fontSize:32,color:T.accent,opacity:.4}}>◎</div>
+                          <div style={{fontSize:11,marginTop:8,letterSpacing:2}}>رفع صورة</div>
+                        </div>
+                    }
+                  </div>
+                  <input ref={avatarRef} type="file" accept="image/*" style={{display:"none"}}
+                    onChange={e=>{const f=e.target.files[0];if(f)setAvatar(URL.createObjectURL(f));}} />
+                </div>
 
-    <!-- ➕ انسخ الـ cert-card وزيد شهادات هنا -->
+                <div style={{flex:1,minWidth:260}}>
+                  <div className="hero-text" style={{display:"flex",alignItems:"center",gap:8,marginBottom:12}}>
+                    <div style={{width:28,height:2,background:T.accent}} />
+                    <span style={{fontSize:10,letterSpacing:3,color:T.accent,textTransform:"uppercase",fontWeight:600}}>Portfolio</span>
+                  </div>
 
-  </div>
-</div>
+                  {editJob
+                    ? <div className="hero-text-2" style={{display:"flex",gap:10,marginBottom:16,alignItems:"center"}}>
+                        <input value={draftJob} onChange={e=>setDraftJob(e.target.value)} autoFocus
+                          style={{...inputSt,background:"transparent",border:"none",borderBottom:`1px solid ${T.accent}`,borderRadius:0,fontSize:17,fontWeight:500,flex:1}} />
+                        <button onClick={()=>{setJobTitle(draftJob);setEditJob(false);}} style={btnSmall}>Save</button>
+                      </div>
+                    : <p className="hero-text-2" style={{color:T.accent,fontSize:17,fontWeight:500,marginBottom:16,cursor:"pointer",letterSpacing:.5}}
+                        onClick={()=>{setDraftJob(jobTitle);setEditJob(true);}}>{jobTitle} ✏️</p>
+                  }
 
-<!-- ===== CONTACT ===== -->
-<!-- 🔧 غيّر الروابط بروابطك الحقيقية -->
-<div class="contact-section" id="contact">
-  <div class="contact-inner reveal">
-    <p class="section-label">✦ تواصل معايا</p>
-    <h2 class="section-title" style="font-size:2rem;">خليني أسمع عن <span>مشروعك</span></h2>
-    <div class="divider" style="margin-top:1rem;"></div>
-    <p style="color:var(--text-muted); font-size:0.95rem; line-height:1.8; margin-top:1.5rem;">
-      عندك فكرة تحتاج تنفيذ؟ أو محتاج مصمم يفهم اللي في دماغك؟<br>أنا هنا — بعتلي
-    </p>
-    <div class="contact-links">
-      <a class="contact-btn" href="mailto:your@email.com">📧 البريد الإلكتروني</a><!-- 🔧 -->
-      <a class="contact-btn" href="https://wa.me/201000000000" target="_blank">💬 واتساب</a><!-- 🔧 -->
-      <a class="contact-btn" href="https://instagram.com/yourhandle" target="_blank">📸 إنستاجرام</a><!-- 🔧 -->
-      <a class="contact-btn" href="https://behance.net/yourprofile" target="_blank">💼 بيهانس</a><!-- 🔧 -->
-    </div>
-  </div>
-</div>
+                  {editBio
+                    ? <div className="hero-text-3">
+                        <textarea value={draftBio} onChange={e=>setDraftBio(e.target.value)} rows={4} autoFocus
+                          style={{...inputSt,width:"100%",lineHeight:1.7,resize:"vertical",maxWidth:520}} />
+                        <br/><button onClick={()=>{setBio(draftBio);setEditBio(false);}} style={{...btnPrimary,marginTop:10}}>Save</button>
+                      </div>
+                    : <p className="hero-text-3" style={{color:T.textSub,lineHeight:1.8,fontSize:15,cursor:"pointer",maxWidth:500}}
+                        onClick={()=>{setDraftBio(bio);setEditBio(true);}}>{bio} <span style={{color:T.accent,fontSize:11}}>✏️</span></p>
+                  }
+                </div>
+              </div>
+            </div>
+          </div>
 
-<!-- ===== FOOTER ===== -->
-<footer>
-  صُنع بـ ❤️ | <span>Portfolio 2025</span>
-</footer>
+          {/* ── IMAGES 1 ── */}
+          <hr className="divider" />
+          <section><div className="sec-inner">
+            <EditableHeader value={h1} onChange={setH1} />
+            <div className="grid-3">
+              {imgs1.map((it,i)=><ImageCard key={it.id} onRemove={()=>setImgs1(p=>p.filter((_,j)=>j!==i))} />)}
+            </div>
+            <AddBtn label="إضافة صورة" onClick={()=>setImgs1(p=>[...p,{id:uid()}])} />
+          </div></section>
 
-<script>
-  /* Smooth scroll for nav links */
-  document.querySelectorAll('a[href^="#"]').forEach(a => {
-    a.addEventListener('click', e => {
-      const target = document.querySelector(a.getAttribute('href'));
-      if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
-    });
-  });
+          {/* ── VIDEOS ── */}
+          <hr className="divider" />
+          <section className="sec-alt"><div className="sec-inner">
+            <EditableHeader value={h2} onChange={setH2} />
+            <div className="grid-video">
+              {vids.map((it,i)=><VideoCard key={it.id} onRemove={()=>setVids(p=>p.filter((_,j)=>j!==i))} />)}
+            </div>
+            <AddBtn label="إضافة فيديو" onClick={()=>setVids(p=>[...p,{id:uid()}])} />
+          </div></section>
 
-  /* Scroll reveal */
-  const obs = new IntersectionObserver((entries) => {
-    entries.forEach((entry, i) => {
-      if (entry.isIntersecting) {
-        setTimeout(() => entry.target.classList.add('visible'), i * 80);
-        obs.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.1 });
+          {/* ── IMAGES 2 ── */}
+          <hr className="divider" />
+          <section><div className="sec-inner">
+            <EditableHeader value={h3} onChange={setH3} />
+            <div className="grid-3">
+              {imgs2.map((it,i)=><ImageCard key={it.id} onRemove={()=>setImgs2(p=>p.filter((_,j)=>j!==i))} />)}
+            </div>
+            <AddBtn label="إضافة صورة" onClick={()=>setImgs2(p=>[...p,{id:uid()}])} />
+          </div></section>
 
-  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
-</script>
+          {/* ── TESTIMONIALS ── */}
+          <hr className="divider" />
+          <section className="sec-alt"><div className="sec-inner">
+            <EditableHeader value="آراء العملاء" onChange={()=>{}} />
+            {tests.length===0 && <p style={{textAlign:"center",color:T.textMuted,marginBottom:32,fontSize:13}}>لا يوجد آراء بعد</p>}
+            {tests.length>0 && <div className="grid-3" style={{gridTemplateColumns:"repeat(auto-fill,minmax(280px,1fr))"}}>
+              {tests.map((it,i)=><TestimonialCard key={it.id} onRemove={()=>setTests(p=>p.filter((_,j)=>j!==i))} />)}
+            </div>}
+            <AddBtn label="إضافة رأي عميل" onClick={()=>setTests(p=>[...p,{id:uid()}])} />
+          </div></section>
+
+          {/* ── FOOTER ── */}
+          <hr className="divider" />
+          <footer style={{background:T.footerBg,padding:"60px 24px 40px"}}>
+            <div style={{maxWidth:680,margin:"0 auto",textAlign:"center"}}>
+              <a href={`https://www.facebook.com/${fbNum}`} target="_blank" rel="noreferrer"
+                style={{display:"inline-flex",alignItems:"center",justifyContent:"center",width:52,height:52,borderRadius:"50%",background:"#1877f2",color:"#fff",fontSize:22,textDecoration:"none",marginBottom:32,boxShadow:"0 4px 24px rgba(24,119,242,.35)",transition:"transform .2s"}}
+                onMouseEnter={e=>e.currentTarget.style.transform="scale(1.12)"}
+                onMouseLeave={e=>e.currentTarget.style.transform="scale(1)"}
+              >f</a>
+
+              {editContact
+                ? <div style={{display:"flex",flexDirection:"column",gap:10,marginBottom:24,alignItems:"center"}}>
+                    {[["📧 الإيميل",email,setEmail],["📍 العنوان",address,setAddress],["📘 رقم فيسبوك",fbNum,setFbNum],["📸 انستجرام",insta,setInsta]].map(([lbl,val,set])=>(
+                      <div key={lbl} style={{display:"flex",gap:10,alignItems:"center"}}>
+                        <span style={{color:T.textMuted,fontSize:12,width:120,textAlign:"right"}}>{lbl}</span>
+                        <input value={val} onChange={e=>set(e.target.value)} style={{...inputSt,width:210}} />
+                      </div>
+                    ))}
+                    <button onClick={()=>setEditContact(false)} style={{...btnPrimary,marginTop:8}}>Save</button>
+                  </div>
+                : <>
+                    <div style={{display:"flex",gap:28,justifyContent:"center",flexWrap:"wrap",marginBottom:18}}>
+                      <span style={{color:T.textSub,fontSize:13}}>📧 {email}</span>
+                      <span style={{color:T.textSub,fontSize:13}}>📍 {address}</span>
+                      <span style={{color:T.textSub,fontSize:13}}>📸 {insta}</span>
+                    </div>
+                    <button onClick={()=>setEditContact(true)} style={{background:"transparent",border:`1px solid ${T.divider}`,color:T.textMuted,padding:"6px 18px",borderRadius:6,cursor:"pointer",fontSize:11}}>✏️ تعديل</button>
+                  </>
+              }
+              <p style={{color:T.textMuted,fontSize:11,marginTop:40,opacity:.4}}>© 2026 Portfolio</p>
+            </div>
+          </footer>
+        </>
+      );
+    }
+
+    ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+  </script>
 </body>
 </html>
